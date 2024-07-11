@@ -12,35 +12,20 @@ const conn = mysql.createConnection({
 
 http.createServer((req, res) => {
     const queryObject = url.parse(req.url, true).query;
-    const idPublicacion = queryObject.idpublicacion;
+    const idPublicacion = queryObject.idpublicacion; //Valores que cambiaran con los diseños 
+    const valor = queryObject.valor; //Valores que cambiaran con los diseños 
 
-    const sql = `SELECT SUM(valor) as suma_total, COUNT(*) as total_registros FROM datos WHERE idpublicacion = ?`;
-    
-    conn.query(sql, [idPublicacion], (error, results) => {
+    const sqlInsert = `INSERT INTO datos (idpublicacion, valor) VALUES (?, ?)`;
+
+    conn.query(sqlInsert, [idPublicacion, valor], (error, results) => {
         if (error) {
             res.writeHead(500, { 'Content-Type': 'text/plain' });
             res.end('Error en la consulta a la base de datos');
             return;
         }
 
-        if (results.length > 0) {
-            const row = results[0];
-            const suma_total = row.suma_total;
-            const total_registros = row.total_registros;
-
-            if (total_registros > 0) {
-                const promedio = suma_total / total_registros;
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.write(`La suma total es: ${suma_total}<br>`);
-                res.write(`El número total de registros es: ${total_registros}<br>`);
-            } else {
-                res.writeHead(200, { 'Content-Type': 'text/plain' });
-                res.end('No hay registros en la tabla.');
-            }
-        } else {
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end('No se encontraron resultados.');
-        }
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Inserción exitosa');
     });
 }).listen(8080, () => {
     console.log('Servidor escuchando en el puerto 8080');
