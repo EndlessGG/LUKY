@@ -26,14 +26,14 @@
         <section class="publicaciones">
             <h2>Publicaciones</h2>
             <div class="publicaciones-container">
-                <% user.publicaciones.forEach(function(publicacion) { %>
-                    <div class="publicacion">
-                        <h3><%= publicacion.titulo %></h3>
+                270324
                         <p><%= publicacion.descripcion %></p>
                         <p>Valoración: <%= publicacion.precioI %></p>
                         <p>Valoración: <%= publicacion.precioF %></p>
                     </div>
-                <% }); %>
+                <% }); %><% user.publicaciones.forEach(function(publicacion) { %>
+                    <div class="publicacion">
+                        <h3><%= publicacion.titulo %></h3>
             </div>
             <button id="agregar-publicacion">Agregar Publicación</button>
         </section>

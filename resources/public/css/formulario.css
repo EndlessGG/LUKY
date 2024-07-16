@@ -13,6 +13,7 @@ body{
     align-items: center;
     background-color: #F0F4F3;
 }
+
 .container{
     width: 800px;
     height: 500px;
@@ -72,6 +73,12 @@ body{
     height: 100%;
     background-color: inherit;
 }
+.container-form a{
+    color: black;
+    font-size:  14px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
 .button{
     width: 170px;
     height: 45px;
@@ -82,6 +89,17 @@ body{
     margin-top: 10px;  
     background-color: #3AB397;  
     color: white;
+}
+/*Animation form*/
+
+.sign-up{
+    transform: translateX(-100%);
+}
+.container.toggle .sign-in{
+    transform: translateX(100%);
+}
+.container.toggle .sign-up{
+    transform: translateX(0);
 }
 
 /*Welcome*/
@@ -112,6 +130,9 @@ body{
     color: white;
     transition: transform 0.5s ease-in-out;
 }
+.welcome-sign-in{
+    transform: translateX(100%);
+}
 .container-welcome h3{
     font-size: 40px;
 }
@@ -122,4 +143,11 @@ body{
 .container-welcome .button{
     border: 2px solid white;
     background-color: transparent;
+}
+
+.container.toggle .welcome-sign-in{
+    transform: translateX(0);
+}
+.container.toggle .welcome-sign-up{
+    transform: translateX(-100%);
 }

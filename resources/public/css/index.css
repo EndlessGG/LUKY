@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #d8f5f4;
     box-sizing: border-box;
 }
 
@@ -32,6 +33,15 @@ nav ul li a:hover {
     background-color: #4CC3C8; /* Cambio de color al pasar el ratón */
 }
 
+.container {
+    position: relative;
+}
+input {
+    
+    padding: 10px;
+    padding-right: 600px;
+    border-radius: 5px;
+}
 main {
     padding: 2rem;
     text-align: center;

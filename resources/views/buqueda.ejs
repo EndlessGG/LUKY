@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Servicios</title>
+    <link rel="stylesheet" href="css/busqueda.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/formulario">Iniciar Sesión</a></li>
+                <li><a href="#">Acerca de</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <h1 class="center-text">Lista de Servicios</h1>
+        <form id="search-form" class="center-text">
+            <input type="text" id="search-input" placeholder="Buscar por título (Ej: informática, jardinería)">
+            <button><i class="fas fa-search"></i></button>
+        </form>
+        <div class="publicaciones-container">
+            <div id="lista-publicaciones" class="publicaciones"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LUKY. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const tituloP = document.getElementById('search-input').value;
+            fetch(`/buscar?tituloP=${encodeURIComponent(tituloP)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const publicacionesDiv = document.getElementById('lista-publicaciones');
+                    publicacionesDiv.innerHTML = '';
+                    if (data.length > 0) {
+                        data.forEach(publicacion => {
+                            const pubDiv = document.createElement('div');
+                            pubDiv.className = 'publicacion';
+                            pubDiv.innerHTML = `
+                                <h2>${publicacion.tituloP}</h2>
+                                <p><strong>Descripción:</strong> ${publicacion.descripcion}</p>
+                                <p><strong>Precio Inicial:</strong> $${publicacion.precioI}</p>
+                                <p><strong>Precio Final:</strong> $${publicacion.precioF}</p>
+                                <p><strong>Usuario ID:</strong> ${publicacion.usuarioId}</p>
+                                <p><strong>Valoración:</strong> ${publicacion.valoracion}</p>
+                            `;
+                            publicacionesDiv.appendChild(pubDiv);
+                        });
+                    } else {
+                        publicacionesDiv.innerHTML = '<p>No se encontraron publicaciones</p>';
+                    }
+                });
+        });
+
+        // Función para eliminar acentos y convertir a minúsculas
+        function normalizeText(text) {
+            return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+    </script>
+</body>
+</html>
