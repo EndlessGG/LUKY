@@ -6,9 +6,7 @@ const pool = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+    connectionLimit: 10
 })
 
 // Funcion para verificar la conexion :3
@@ -19,11 +17,11 @@ async function testConnection() {
         connection.release()
     } catch (error) {
         console.error('Error al conectar a la base de datos:', error.message)
-        // process.exit(1) // para detener la app en caso de error
+        process.exit(1) // para detener la app en caso de error
     }
 }
 
 // forma para esperar que la conexion se verifique antes de exportar
-testConnection().then(() => {
-    module.exports = pool
-})
+testConnection()
+
+module.exports = pool
