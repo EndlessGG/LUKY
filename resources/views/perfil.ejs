@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <link rel="stylesheet" href="css/perfil.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/perfil">Perfil</a></li>
+                <!-- Otros enlaces de navegación -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="profile-info">
+            <h1>Perfil de <%= user.name %></h1>
+            <p>Profesión: <%= user.categoria %></p>
+        </section>
+
+        <section class="publicaciones">
+            <h2>Publicaciones</h2>
+            <div class="publicaciones-container">
+                270324
+                        <p><%= publicacion.descripcion %></p>
+                        <p>Valoración: <%= publicacion.precioI %></p>
+                        <p>Valoración: <%= publicacion.precioF %></p>
+                    </div>
+                <% }); %><% user.publicaciones.forEach(function(publicacion) { %>
+                    <div class="publicacion">
+                        <h3><%= publicacion.titulo %></h3>
+            </div>
+            <button id="agregar-publicacion">Agregar Publicación</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Mi Servicio. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="/scripts.js"></script>
+</body>
+</html>
