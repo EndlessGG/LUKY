@@ -136,6 +136,32 @@ class UserController {
             res.status(500).json({ message: 'Error interno del servidor' })
         }
     }
+    
+    static googleAuth(req, res, next) {
+        passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] })(req, res, next);
+      }
+    
+      static googleAuthCallback(req, res, next) {
+        passport.authenticate('google', { failureRedirect: '/' })(req, res, next);
+      }
+    
+      static googleAuthCallbackRedirect(req, res) {
+        res.redirect('/busqueda');
+      }
+    
+      static async profile(req, res) {
+        if (!req.isAuthenticated()) {
+          return res.redirect('/');
+        }
+        res.send(`Hello, ${req.user.displayName}`);
+      }
+      static async logout(req, res) {
+        req.logout((err) => {
+          if (err) { return next(err); }
+          res.redirect('/');
+        });
+      }
+    
 }
 
 module.exports = UserController

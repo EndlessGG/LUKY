@@ -12,7 +12,7 @@
         <div class="container-form">
             <form class="sign-in" action="/auth/login" method="post">
                 <h2>Iniciar Sesión</h2>
-                <div class="social-networks">
+                <div class="social-networks" id="google-login-btn">
                     <ion-icon name="logo-google"></ion-icon>  
                 </div>
                 <span>Use su correo y contraseña</span>
@@ -79,7 +79,11 @@
 
     </div>
 
-
+    <script>
+        document.getElementById('google-login-btn').addEventListener('click', () => {
+            window.location.href = '/auth/google';
+        });
+    </script>
     <script src="js/index.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
