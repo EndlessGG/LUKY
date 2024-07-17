@@ -4,6 +4,11 @@ const path = require('path');
 const app = express();
 require('dotenv').config();
 const frontendRoutes = require('./app/routes/front.routes');
+const authRoutes = require('./app/routes/auth.routes')
+const cookieParser = require('cookie-parser')
+const sessionMiddleware = require('./app/middlewares/sessionMiddleware')
+const jwt = require('jsonwebtoken')
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -15,9 +20,12 @@ app.use(express.static(path.join(__dirname, 'resources/public'))); // Archivos e
 // Middleware
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false })); // Para los formularios y más
+app.use(cookieParser())
+app.use(sessionMiddleware)
 
 // Endpoints
 app.use('/', frontendRoutes); // Rutas de páginas
+app.use('/auth', authRoutes)
 
 // Ruta para la página de inicio de sesión
 app.get('/formulario', (req, res) => {
