@@ -9,10 +9,10 @@ class UserController {
     static async registro(req, res) {
         try {
             //quitar telefono y isTrabajador y meter por default 0 a istrabajdor
-            const { nombres, apellidoPaterno, apellidoMaterno, email, password, telefono, isTrabajador } = req.body // lo que sacamos del form
+            const { nombres, apellidoPaterno, apellidoMaterno, email, password/*, telefono, isTrabajador */} = req.body // lo que sacamos del form
 
             // Validación de datos de entrada
-            if (!nombres || !apellidoPaterno || !apellidoMaterno || !email || !password || !telefono || !isTrabajador) {
+            if (!nombres || !apellidoPaterno || !apellidoMaterno || !email || !password) {
                 return res.status(400).json({ error: 'Llene todos los campos de manera correcta' })
             }
 
@@ -42,7 +42,7 @@ class UserController {
             const hashedPassword = await User.hashPassword(password)
 
             // Creacion del nuevo usuario
-            const newUser = new User( nombres, apellidoPaterno, apellidoMaterno, email, hashedPassword, telefono, isTrabajador )
+            const newUser = new User( nombres, apellidoPaterno, apellidoMaterno, email, hashedPassword/*, telefono, isTrabajador */)
             const userId = await newUser.registerUser()
 
             res.status(201).json({ message: 'Usuario registrado exitosamente', userId: userId.insertId })
