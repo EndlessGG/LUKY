@@ -32,8 +32,9 @@ exports.authMiddleware = (req, res, next) => {
     const token = req.cookies.token  // sacamos el token de las cookies para ver si si hay o no vea
     console.log('Token extraido:', token) // depuracion
     if (!token) {
-        return res.status(401).json({ mensaje: 'No se proporciono token' });
+        //return res.status(401).json({ mensaje: 'No se proporciono token' });
         // despues lo redireccion a la pagina de login
+        res.redirect('/Busqueda')
     }
 
     // este por ahora no me sirve aqui

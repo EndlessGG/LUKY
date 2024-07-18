@@ -45,8 +45,9 @@ class UserController {
             const newUser = new User( nombres, apellidoPaterno, apellidoMaterno, email, hashedPassword/*, telefono, isTrabajador */)
             const userId = await newUser.registerUser()
 
-            res.status(201).json({ message: 'Usuario registrado exitosamente', userId: userId.insertId })
+            //res.status(201).json({ message: 'Usuario registrado exitosamente', userId: userId.insertId })
             //bueno o hago una verificacion por email o solo lo redirecciono al login xd jsjs o la inddex o un mensaje para decirle, ya eres un castor UTP
+            return res.redirect('/Formulario')
         } catch (error) {
             console.error('Error al registrar usuario, controller:', error)
             res.status(500).json({ error: 'Error interno del servidor' })
@@ -86,9 +87,9 @@ class UserController {
             })
 
             // para verificar logeo
-            res.status(200).json({ message: 'Inicio de sesion exitoso', token })
+            //res.status(200).json({ message: 'Inicio de sesion exitoso', token })
             // poner lugar para redireccionar, en este caso seria el indezx o la pgina de inico
-
+            res.redirect('/Busqueda')
         } catch (error) {
             console.error('Error al iniciar sesion, controller:', error)
             res.status(500).json({ error: 'Error interno del servidor' })
@@ -100,8 +101,9 @@ class UserController {
         try {
             res.clearCookie('token')
             req.session.destroy
-            res.json({ messaje: 'Cierre de Sesion Exitoso' })
-            // agregar un redireccion de pagina xd o nose, que lo mande al index
+            //res.json({ messaje: 'Cierre de Sesion Exitoso' })
+            // agregar un redireccion de pagina xd o nose, que lo mande al index\
+            res.redirect('/')
         } catch (error) {
             console.error('Error al cerrar sesion, controller:', error)
         }
