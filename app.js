@@ -37,11 +37,10 @@ const publicaciones = [
         ID: 1,
         tituloP: "Informatica",
         fecha: "2024-07-15",
-        descripcion: "Descripción del servicio de informática.",
+        descripcion: "Descripción del servicio de informáticazzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz.",
         precioI: 100.0,
         precioF: 120.0,
         categoriaId: "Informatica",
-        usuarioId: 1,
         valoracion: 4.5
     },
     {
@@ -52,7 +51,6 @@ const publicaciones = [
         precioI: 200.0,
         precioF: 220.0,
         categoriaId: 3,
-        usuarioId: 2,
         valoracion: 4.0
     },
     {
@@ -63,7 +61,16 @@ const publicaciones = [
         precioI: 150.0,
         precioF: 170.0,
         categoriaId: "Informatica",
-        usuarioId: 3,
+        valoracion: 5.0
+    },
+    {
+        ID: 4,
+        tituloP: "Limpieza",
+        fecha: "2024-07-17",
+        descripcion: "Descripción del servicio avanzado de informática.",
+        precioI: 150.0,
+        precioF: 170.0,
+        categoriaId: "Informatica",
         valoracion: 5.0
     }
 ];

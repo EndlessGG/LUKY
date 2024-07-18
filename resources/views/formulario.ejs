@@ -7,22 +7,21 @@
     <link rel="stylesheet" href="css/formulario.css">
 </head>
 <body>
-   
     <div class="container">
         <div class="container-form">
-            <form class="sign-in" action="/auth/login" method="post">
+            <form class="sign-in" action="/auth/login" method="post" id="loginForm">
                 <h2>Iniciar Sesión</h2>
                 <div class="social-networks">
-                    <ion-icon name="logo-google"></ion-icon>  
+                    <ion-icon name="logo-google"></ion-icon>
                 </div>
                 <span>Use su correo y contraseña</span>
                 <div class="container-input">
                     <ion-icon name="mail-outline"></ion-icon>
-                    <input type="text" id="email" name="email" placeholder="Email">
+                    <input type="text" id="loginEmail" name="email" placeholder="Email">
                 </div>
                 <div class="container-input">
                     <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input type="password" id="password" name="password" placeholder="Password">
+                    <input type="password" id="loginPassword" name="password" placeholder="Password">
                 </div>
                 <a href="#">¿Olvidaste tu contraseña?</a>
                 <button type="submit" class="button">INICIAR SESIÓN</button>
@@ -30,37 +29,36 @@
         </div>
 
         <div class="container-form">
-            <form class="sign-up" action="/auth/registro" method="post">
+            <form class="sign-up" action="/auth/registro" method="post" id="registerForm">
                 <h2>Registrarse</h2>
                 <div class="social-networks">
                     <ion-icon name="logo-google"></ion-icon>
-                    
                 </div>
                 <span>Ingrese su correo electrónico para registrarse</span>
                 <div class="container-input">
                     <ion-icon name="person-outline"></ion-icon>
-                    <input type="text" name="nombres" id="nombres" placeholder="Nombre">
+                    <input type="text" name="nombres" id="registerNombres" placeholder="Nombre">
                 </div>
                 <div class="container-input inline">
                     <div>
                         <ion-icon name="person-outline"></ion-icon>
-                        <input type="text" id="apellidoPaterno" name="apellidoPaterno" placeholder="Apellido Paterno">
+                        <input type="text" id="registerApellidoPaterno" name="apellidoPaterno" placeholder="Apellido Paterno">
                     </div>
                     <div>
                         <ion-icon name="person-outline"></ion-icon>
-                        <input type="text" name="apellidoMaterno" id="apellidoMaterno" placeholder="Apellido Materno">
+                        <input type="text" name="apellidoMaterno" id="registerApellidoMaterno" placeholder="Apellido Materno">
                     </div>
                 </div>
                 <div class="container-input">
                     <ion-icon name="mail-outline"></ion-icon>
-                    <input type="text" name="email" id="email" placeholder="Correo">
+                    <input type="text" name="email" id="registerEmail" placeholder="Correo">
                 </div>
                 <div class="container-input">
                     <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input type="password" name="password" placeholder="Contraseña">
+                    <input type="password" name="password" id="registerPassword" placeholder="Contraseña">
                 </div>
-                <a href="#">Terminos y condiciones</a>
-                <button class="button" type="submit" >REGISTRARSE</button>
+                <a href="#">Términos y condiciones</a>
+                <button class="button" type="submit">REGISTRARSE</button>
             </form>
         </div>
 
@@ -76,11 +74,16 @@
                 <button class="button" id="btn-sign-in">Iniciar Sesión</button>
             </div>
         </div>
-
     </div>
 
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p id="modalMessage"></p>
+        </div>
+    </div>
 
-    <script src="js/index.js"></script>
+    <script src="js/formulario.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

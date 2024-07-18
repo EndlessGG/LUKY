@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Servicios</title>
+    <title>Luky</title>
     <link rel="stylesheet" href="css/busqueda.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="/">Inicio</a></li>
-                <li><a href="/formulario">Iniciar Sesión</a></li>
                 <li><a href="#">Acerca de</a></li>
                 <li><a href="#">Servicios</a></li>
-                <li><a href="#">Contacto</a></li>
+                <li><a href="/Perfil">Mi Perfil</a></li>
             </ul>
         </nav>
     </header>
     
     <main>
-        <h1 class="center-text">Lista de Servicios</h1>
+        <h1 class="center-text">Encuentra el servicio que buscas</h1>
         <form id="search-form" class="center-text">
-            <input type="text" id="search-input" placeholder="Buscar por título (Ej: informática, jardinería)">
+            <input type="text" id="search-input" placeholder="Buscar">
             <button><i class="fas fa-search"></i></button>
         </form>
         <div class="publicaciones-container">
@@ -49,12 +49,22 @@
                             const pubDiv = document.createElement('div');
                             pubDiv.className = 'publicacion';
                             pubDiv.innerHTML = `
-                                <h2>${publicacion.tituloP}</h2>
-                                <p><strong>Descripción:</strong> ${publicacion.descripcion}</p>
-                                <p><strong>Precio Inicial:</strong> $${publicacion.precioI}</p>
-                                <p><strong>Precio Final:</strong> $${publicacion.precioF}</p>
-                                <p><strong>Usuario ID:</strong> ${publicacion.usuarioId}</p>
-                                <p><strong>Valoración:</strong> ${publicacion.valoracion}</p>
+                                <div class="publicacion-header">
+                                    <h2>${publicacion.tituloP}</h2>
+                                    <p class="valoracion">
+                                        <strong>Valoración:</strong> ${publicacion.valoracion}
+                                        <i class="fas fa-star"></i>
+                                    </p>
+                                </div>
+                                <div class="publicacion-body">
+                                    <p><strong>Descripción:</strong> ${publicacion.descripcion}</p>
+                                    <div class="publicacion-prices">
+                                        <p><strong>Precio Inicial:</strong> $${publicacion.precioI}</p>
+                                        <p>-</p>
+                                        <p><strong>Precio Final:</strong> $${publicacion.precioF}</p>
+                                    </div>
+                            
+                                </div>
                             `;
                             publicacionesDiv.appendChild(pubDiv);
                         });
@@ -63,7 +73,7 @@
                     }
                 });
         });
-
+        
         // Función para eliminar acentos y convertir a minúsculas
         function normalizeText(text) {
             return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();

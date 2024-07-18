@@ -1,54 +1,20 @@
-/* Centrar texto y formulario */
-.center-text {
-    text-align: center;
-    margin: 0 auto;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
 }
 
-#search-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #d8f5f4;
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
 }
 
-#search-input {
-    padding: 10px;
-    width: 600px;
-}
-
-button {
-    padding: 10px 20px;
-}
-
-/* Estilo del cuadro de publicaciones */
-.publicaciones-container {
-    display: flex;
-    justify-content: center;
-}
-
-.publicaciones {
-    border: 1px solid #ccc;
-    padding: 20px;
-    width: 80%; /* Puedes ajustar el tamaño del cuadro aquí */
-    height: 400px; /* Altura fija para el cuadro de publicaciones */
-    background-color: #f0fbfa;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-top: 20px;
-    overflow-y: auto; /* Agrega el scroll vertical */
-}
-
-/* Estilo de cada publicación individual */
-.publicacion {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: white;
-    border-radius: 5px;
-}
-
-/* Estilos del header y footer */
 header {
     background-color: #3AA8AD;
     color: white;
@@ -97,11 +63,119 @@ footer {
     z-index: 1000;
 }
 
-/* Elimina el margen y padding del body para asegurar que no haya espacio en blanco */
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #d8f5f4;
-    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+.center-text {
+    text-align: center;
+    margin: 0 auto;
+}
+
+#search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#search-input {
+    padding: 10px;
+    width: 600px;
+}
+
+button {
+    padding: 10px 20px;
+}
+
+/* Estilo del cuadro de publicaciones */
+.publicaciones-container {
+    display: flex;
+    justify-content: center;
+}
+
+.publicaciones {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 60%; /* Puedes ajustar el tamaño del cuadro aquí */
+    height: 600px; /* Altura fija para el cuadro de publicaciones */
+    background-color: #f0fbfa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 20px;
+    overflow-y: auto; /* Agrega el scroll vertical */
+}
+
+/* Estilo de cada publicación individual */
+.publicacion {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+    word-wrap: break-word; /* Asegura que el texto largo se ajuste a una nueva línea */
+    overflow-wrap: break-word; /* Asegura que el texto largo se ajuste a una nueva línea */
+    word-break: break-all; /* Asegura que el texto largo se ajuste a una nueva línea */
+}
+
+.publicacion:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.publicacion h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+    word-wrap: break-word; /* Asegura que el texto largo se ajuste a una nueva línea */
+    overflow-wrap: break-word; /* Asegura que el texto largo se ajuste a una nueva línea */
+    word-break: break-all; /* Asegura que el texto largo se ajuste a una nueva línea */
+}
+
+.publicacion p {
+    margin: 5px 0;
+    color: #666;
+    word-wrap: break-word; /* Asegura que el texto largo se ajuste a una nueva línea */
+    overflow-wrap: break-word; /* Asegura que el texto largo se ajuste a una nueva línea */
+    word-break: break-all; /* Asegura que el texto largo se ajuste a una nueva línea */
+}
+
+.publicacion p strong {
+    color: #333;
+}
+
+/* Nuevos estilos para organizar el contenido */
+.publicacion-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.publicacion-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.publicacion-prices {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.publicacion-prices p {
+    margin-right: 5px;
+}
+
+.publicacion .valoracion {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    color: #333;
+}
+
+.fas.fa-star {
+    color: yellow;
+    font-size: 1.2em;
+    margin-left: 5px;
 }
