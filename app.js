@@ -8,6 +8,9 @@ const authRoutes = require('./app/routes/auth.routes')
 const cookieParser = require('cookie-parser')
 const sessionMiddleware = require('./app/middlewares/sessionMiddleware')
 const jwt = require('jsonwebtoken')
+const session = require('express-session');
+const passport = require('./config/passportConfig');
+const AuthController = require('./app/Controllers/Auth/authController');
 
 
 const PORT = process.env.PORT || 3000;
@@ -87,6 +90,23 @@ app.get('/buscar', (req, res) => {
         pub.tituloP.toLowerCase().includes(tituloP)
     );
     res.json(publicacionesFiltradas);
+});
+// Configuración de sesión
+app.use(session({ secret: 'your secret key', resave: false, saveUninitialized: true }));
+
+// Inicializar passport y sesión
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Middleware para parsear body de las solicitudes
+app.use(express.urlencoded({ extended: false }));
+
+// Ruta para iniciar la autenticación con Google
+app.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+// Ruta para manejar el callback de Google
+app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
+  res.redirect('/busqueda');
 });
 
 app.listen(PORT, () => {

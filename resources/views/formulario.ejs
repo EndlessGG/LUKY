@@ -11,8 +11,13 @@
         <div class="container-form">
             <form class="sign-in" action="/auth/login" method="post" id="loginForm">
                 <h2>Iniciar Sesión</h2>
+<<<<<<< HEAD
                 <div class="social-networks">
                     <ion-icon name="logo-google"></ion-icon>
+=======
+                <div class="social-networks" id="google-login-btn">
+                    <ion-icon name="logo-google"></ion-icon>  
+>>>>>>> e2fb0f359ff21adbb8a02cdc3d7e153ff3482a30
                 </div>
                 <span>Use su correo y contraseña</span>
                 <div class="container-input">
@@ -76,6 +81,7 @@
         </div>
     </div>
 
+<<<<<<< HEAD
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -84,6 +90,14 @@
     </div>
 
     <script src="js/formulario.js"></script>
+=======
+    <script>
+        document.getElementById('google-login-btn').addEventListener('click', () => {
+            window.location.href = '/auth/google';
+        });
+    </script>
+    <script src="js/index.js"></script>
+>>>>>>> e2fb0f359ff21adbb8a02cdc3d7e153ff3482a30
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
