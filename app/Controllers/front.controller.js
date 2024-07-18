@@ -15,3 +15,6 @@ exports.showBusquedaPage = (req, res) => {
 exports.showTerminosPage = (req, res) => {
     res.render('terminos')  // pagina de inicio
 }
+exports.showAcercaPage = (req, res) => {
+    res.render('acerca')  // pagina de acerca
+}
