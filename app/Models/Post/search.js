@@ -19,10 +19,10 @@ class Search {
         JOIN 
             usuarios u ON p.usuarioID = u.ID
         WHERE 
-            p.tituloP LIKE ?`;
+            p.tituloP LIKE ?`
 
-    const [results] = await db.query(query, [`%${termino}%`]);
-    return results;
+    const [results] = await db.query(query, [`%${termino}%`])
+    return results
   }
 }
 
