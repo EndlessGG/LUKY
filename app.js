@@ -11,6 +11,8 @@ const jwt = require('jsonwebtoken')
 const session = require('express-session');
 const passport = require('./config/passportConfig');
 const AuthController = require('./app/Controllers/Auth/authController');
+const searchRoutes = require('./app/routes/search.routes')
+
 
 
 const PORT = process.env.PORT || 3000;
@@ -22,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'resources/public'))); // Archivos e
 
 // Middleware
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); // Para los formularios y más
 app.use(cookieParser())
 app.use(sessionMiddleware)
@@ -29,6 +32,7 @@ app.use(sessionMiddleware)
 // Endpoints
 app.use('/', frontendRoutes); // Rutas de páginas
 app.use('/auth', authRoutes)
+app.use('/search', searchRoutes)
 
 // Ruta para la página de inicio de sesión
 app.get('/formulario', (req, res) => {
