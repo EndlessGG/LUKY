@@ -34,7 +34,7 @@ exports.authMiddleware = (req, res, next) => {
     if (!token) {
         //return res.status(401).json({ mensaje: 'No se proporciono token' });
         // despues lo redireccion a la pagina de login
-        res.redirect('/Busqueda')
+        res.redirect('/')
     }
 
     // este por ahora no me sirve aqui
