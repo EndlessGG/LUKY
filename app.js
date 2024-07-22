@@ -28,11 +28,6 @@ app.use(sessionMiddleware)
 //endpoints
 app.use('/', frontendRoutes) // rutas de paginas y renderizar las vistas de leo
 app.use('/auth', authRoutes) // para las peticiones de autenticacion
-app.post('/api/test-cookie', (req, res) => { // este despues se quita solo es prueba
-    console.log('Cookies en la solicitud de prueba:', req.cookies)
-    res.json({ cookies: req.cookies })
-})
-
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`)
