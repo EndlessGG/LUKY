@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUKY</title>
+    <link rel="stylesheet" href="/css/formulario.css">
+    <style>
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="container-form">
+            <form class="sign-in" action="/auth/login" method="post" id="loginForm">
+                <h2>Iniciar Sesión</h2>
+                <div class="social-networks" id="google-login-btn">
+                    <ion-icon name="logo-google"></ion-icon>  
+                </div>
+                <span>Use su correo y contraseña</span>
+                <div class="container-input">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="text" id="loginEmail" name="email" placeholder="Email" value="<%= email %>">
+                </div>
+                <% if (errorEmail_l) { %>
+                    <label class="error"><%= errorEmail_l %></label>
+                <% } %>
+                <div class="container-input">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input type="password" id="loginPassword" name="password" placeholder="Password">
+                    
+                </div>
+                <% if (errorPassword_l) { %>
+                    <label class="error"><%= errorPassword_l %></label>
+                <% } %>
+                <a href="#">¿Olvidaste tu contraseña?</a>
+                <button type="submit" class="button">INICIAR SESIÓN</button>
+            </form>
+        </div>
+
+        <div class="container-form">
+            <form class="sign-up" action="/auth/registro" method="post" id="registerForm">
+                <h2>Registrarse</h2>
+                <div class="social-networks">
+                    <ion-icon name="logo-google"></ion-icon>
+                </div>
+                <span>Ingrese su correo electrónico para registrarse</span>
+                <div class="container-input">
+                    <ion-icon name="person-outline"></ion-icon>
+                    <input type="text" name="nombres" id="registerNombres" placeholder="Nombre">
+                </div>
+                <div class="container-input inline">
+                    <div>
+                        <ion-icon name="person-outline"></ion-icon>
+                        <input type="text" id="registerApellidoPaterno" name="apellidoPaterno" placeholder="Apellido Paterno">
+                    </div>
+                    <div>
+                        <ion-icon name="person-outline"></ion-icon>
+                        <input type="text" name="apellidoMaterno" id="registerApellidoMaterno" placeholder="Apellido Materno">
+                    </div>
+                </div>
+                <div class="container-input">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="text" name="email" id="registerEmail" placeholder="Correo">
+                </div>
+                <div class="container-input">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input type="password" name="password" id="registerPassword" placeholder="Contraseña">
+                </div>
+                <a href="/Terminos">Términos y condiciones</a>
+                <button class="button" type="submit">REGISTRARSE</button>
+            </form>
+        </div>
+
+        <div class="container-welcome">
+            <div class="welcome-sign-up welcome">
+                <h3>¡Bienvenido!</h3>
+                <p>Ingrese sus datos personales para usar todas las funciones del sitio</p>
+                <button class="button" id="btn-sign-up">Registrarse</button>
+            </div>
+            <div class="welcome-sign-in welcome">
+                <h3>¡Hola!</h3>
+                <p>Regístrese con sus datos personales para usar todas las funciones del sitio</p>
+                <button class="button" id="btn-sign-in">Iniciar Sesión</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p id="modalMessage"></p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('google-login-btn').addEventListener('click', () => {
+            window.location.href = '/auth/google';
+        });
+    </script>
+    <script src="js/formulario.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #d8f5f4;
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+}
+
+header {
+    background-color: #3AA8AD;
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #4CC3C8;
+    border-radius: 5px;
+}
+
+main {
+    padding-top: 80px; /* Asegúrate de que el contenido no esté oculto detrás del navbar */
+    padding-bottom: 60px; /* Asegúrate de que el contenido no esté oculto detrás del footer */
+    box-sizing: border-box;
+    text-align: center;
+}
+
+footer {
+    background-color: #3AA8AD;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.center-text {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#search-input {
+    padding: 10px;
+    width: 300px;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #ccc;
+    border-right: none;
+    outline: none;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    background-color: #3AA8AD;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    outline: none;
+}
+
+button:hover {
+    background-color: #4CC3C8;
+}
+
+/* Estilo del cuadro de publicaciones */
+.publicaciones-container {
+    display: flex;
+    justify-content: center;
+}
+
+.publicaciones {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 60%; /* Puedes ajustar el tamaño del cuadro aquí */
+    height: 600px; /* Altura fija para el cuadro de publicaciones */
+    background-color: #f0fbfa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 20px;
+    overflow-y: auto; /* Agrega el scroll vertical */
+}
+
+/* Estilo de cada publicación individual */
+.publicacion {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+    word-wrap: break-word; /* Asegura que el texto largo se ajuste a una nueva línea */
+    overflow-wrap: break-word; /* Asegura que el texto largo se ajuste a una nueva línea */
+    word-break: break-all; /* Asegura que el texto largo se ajuste a una nueva línea */
+}
+
+.publicacion:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.publicacion h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+    word-wrap: break-word; /* Asegura que el texto largo se ajuste a una nueva línea */
+    overflow-wrap: break-word; /* Asegura que el texto largo se ajuste a una nueva línea */
+    word-break: break-all; /* Asegura que el texto largo se ajuste a una nueva línea */
+}
+
+.publicacion p {
+    margin: 5px 0;
+    color: #666;
+    word-wrap: break-word; /* Asegura que el texto largo se ajuste a una nueva línea */
+    overflow-wrap: break-word; /* Asegura que el texto largo se ajuste a una nueva línea */
+    word-break: break-all; /* Asegura que el texto largo se ajuste a una nueva línea */
+}
+
+.publicacion p strong {
+    color: #333;
+}
+
+/* Nuevos estilos para organizar el contenido */
+.publicacion-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.publicacion-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.publicacion-prices {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.publicacion-prices p {
+    margin-right: 5px;
+}
+
+.publicacion .valoracion {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    color: #333;
+}
+
+.fas.fa-star {
+    color: yellow;
+    font-size: 1.2em;
+    margin-left: 5px;
+}

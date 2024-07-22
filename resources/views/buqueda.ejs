@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUKY</title>
+    <link rel="stylesheet" href="/css/busqueda.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/Acerca">Acerca de</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="/Perfil">Mi Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <h1 class="center-text">Encuentra el servicio que buscas</h1>
+        <form id="search-form" class="center-text" action="/search/busquedaPublicaciones" method="get">
+            <input type="text" id="search-input" placeholder="Buscar" name="termino">
+            <button><i class="fas fa-search"></i></button>
+        </form>
+        <div class="publicaciones-container">
+            <div id="lista-publicaciones" class="publicaciones">
+                <% if (mensaje) { %>
+                    <p><%= mensaje %></p>
+                <% } else { %>
+                    <% publicaciones.forEach(publicacion => { %>
+                        <div class="publicacion">
+                            <div class="publicacion-header">
+                                <h2><%= publicacion.tituloP %></h2>
+                                <p class="valoracion">
+                                    <strong>Valoración:</strong> <%= publicacion.valoracion %>
+                                    <i class="fas fa-star"></i>
+                                </p>
+                            </div>
+                            <div class="publicacion-body">
+                                <p><strong>Descripción:</strong> <%= publicacion.descripcion %></p>
+                                <div class="publicacion-prices">
+                                    <p><strong>Precio Inicial:</strong> $<%= publicacion.precioI %></p>
+                                    <p>-</p>
+                                    <p><strong>Precio Final:</strong> $<%= publicacion.precioF %></p>
+                                </div>
+                                <p><strong>Usuario:</strong> <%= publicacion.usuarioNombre %></p>
+                                <p><strong>Fecha:</strong> <%= new Date(publicacion.fecha).toLocaleDateString() %></p>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LUKY. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- <script>
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const termino = document.getElementById('search-input').value;
+            fetch(`/search/busquedaPublicaciones?termino=${encodeURIComponent(termino)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const publicacionesDiv = document.getElementById('lista-publicaciones');
+                    publicacionesDiv.innerHTML = '';
+                    if (data.length > 0) {
+                        data.forEach(publicacion => {
+                            const pubDiv = document.createElement('div');
+                            pubDiv.className = 'publicacion';
+                            pubDiv.innerHTML = `
+                                <div class="publicacion-header">
+                                    <h2>${publicacion.tituloP}</h2>
+                                    <p class="valoracion">
+                                        <strong>Valoración:</strong> ${publicacion.valoracion}
+                                        <i class="fas fa-star"></i>
+                                    </p>
+                                </div>
+                                <div class="publicacion-body">
+                                    <p><strong>Descripción:</strong> ${publicacion.descripcion}</p>
+                                    <div class="publicacion-prices">
+                                        <p><strong>Precio Inicial:</strong> $${publicacion.precioI}</p>
+                                        <p>-</p>
+                                        <p><strong>Precio Final:</strong> $${publicacion.precioF}</p>
+                                    </div>
+                                    <p><strong>Usuario:</strong> ${publicacion.usuarioNombre}</p>
+                                    <p><strong>Fecha:</strong> ${new Date(publicacion.fecha).toLocaleDateString()}</p>
+                                </div>
+                            `;
+                            publicacionesDiv.appendChild(pubDiv);
+                        });
+                    } else {
+                        publicacionesDiv.innerHTML = '<p>No se encontraron publicaciones</p>';
+                    }
+                });
+        });
+    
+        // Función para eliminar acentos y convertir a minúsculas
+        function normalizeText(text) {
+            return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+    // </script> -->
+</body>
+</html>

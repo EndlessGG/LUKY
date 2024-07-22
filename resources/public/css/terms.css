@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d8f5f4; /* Color de fondo */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #3AA8AD;
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 1rem;
+}
+
+nav ul li a:hover {
+    background-color: #4CC3C8;
+}
+
+main {
+    flex: 1;
+    padding-top: 80px; /* Asegúrate de que el contenido no esté oculto detrás del navbar */
+    padding-bottom: 60px; /* Asegúrate de que el contenido no esté oculto detrás del footer */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    background-color: #4CC3C8;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.publicaciones-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.publicaciones {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 60%; /* Puedes ajustar el tamaño del cuadro aquí */
+    height: 600px; /* Altura fija para el cuadro de publicaciones */
+    background-color: #f0fbfa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 20px;
+    overflow-y: auto; /* Agrega el scroll vertical */
+}
+
+h1 {
+    text-align: center;
+}
