@@ -6,21 +6,57 @@ una alternativa para encontrar servicios de calidad en base a las experiencias d
 
 ### Instalacion
 
-#Prerequisitos
-- NodeJS version 20.15 LTS
-- Base de Datos MySQL
+# Instalación del Proyecto Node.js
 
-#un resumen de momento xd
-solo ejecuten el comando 'npm install' en la raiz y ya
-se instalaran todas las dependencias
-segundo deben crear el archivo .env
-ejecutando: copy .env.example .env
-ya una vez copiado pues lo configuran segun lo que tengan pero solo el .env no el .env.example
-en su caso solo seria la Base de Datos
-para ejecuta la aplicacion deben ejecutar:
-node app.js
-desde la raiz del proyecto
-ya despues hago un readme bien pal profe
+## Prerrequisitos
+
+Antes de comenzar, asegúrate de tener instalados los siguientes componentes en tu sistema:
+
+1. **Node.js**: Versión 20.15 LTS. Puedes descargarlo desde [nodejs.org](https://nodejs.org/).
+2. **Base de Datos MySQL**: Asegúrate de tener una instancia de MySQL en funcionamiento. Puedes descargarlo desde [mysql.com](https://www.mysql.com/).
+
+## Instalación
+
+Sigue estos pasos para instalar y configurar el proyecto:
+
+1. **Clona el repositorio del proyecto**:
+    ```sh
+    git clone <URL_del_repositorio>
+    cd <nombre_del_proyecto>
+    ```
+
+2. **Instala las dependencias**:
+    En la raíz del proyecto, ejecuta el siguiente comando:
+    ```sh
+    npm install
+    ```
+
+3. **Configura el archivo de entorno**:
+    Copia el archivo de ejemplo `.env.example` a un nuevo archivo `.env`:
+    ```sh
+    copy .env.example .env   # En Windows
+    cp .env.example .env     # En Unix/Linux/MacOS
+    ```
+
+4. **Edita el archivo `.env`**:
+    Abre el archivo `.env` y configura las variables de entorno según tu configuración local. Especialmente, asegúrate de configurar las variables relacionadas con la base de datos MySQL:
+    ```env
+    DB_HOST=localhost
+    DB_USER=tu_usuario
+    DB_PASSWORD=tu_contraseña
+    DB_NAME=nombre_de_tu_base_de_datos
+    ```
+
+5. **Inicia la aplicación**:
+    En la raíz del proyecto, ejecuta el siguiente comando para iniciar la aplicación:
+    ```sh
+    node app.js
+    ```
+
+## Notas adicionales
+
+- Asegúrate de que el servidor MySQL esté en funcionamiento antes de iniciar la aplicación.
+- Puedes revisar y actualizar cualquier otra configuración necesaria en el archivo `.env`.
 
 
 ### Autores
