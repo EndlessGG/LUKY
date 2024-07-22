@@ -2,14 +2,12 @@ const dbConnection = require('../../config/database')
 const bcrypt = require('bcrypt')
 
 class User {
-    constructor(nombres, apellidoPaterno, apellidoMaterno, email, pass, telefono, isTrabajador) {
+    constructor(nombres, apellidoPaterno, apellidoMaterno, email, pass) {
         this.nombres = nombres
         this.apellidoPaterno = apellidoPaterno
         this.apellidoMaterno = apellidoMaterno
         this.email = email
         this.pass = pass
-        this.telefono = telefono
-        this.isTrabajador = isTrabajador
     }
 
     static async hashPassword(password) {
@@ -35,15 +33,13 @@ class User {
     async registerUser() {
         try {
             const [result] = await dbConnection.query(
-                'INSERT INTO usuarios (nombres, apellidoPaterno, apellidoMaterno, email, pass, telefono, isTrabajador) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                'INSERT INTO usuarios (nombres, apellidoPaterno, apellidoMaterno, email, pass) VALUES (?, ?, ?, ?, ?)',
                 [
                     this.nombres,
                     this.apellidoPaterno,
                     this.apellidoMaterno,
                     this.email,
-                    this.pass,
-                    this.telefono,
-                    this.isTrabajador
+                    this.pass
                 ]
             )
             return result
