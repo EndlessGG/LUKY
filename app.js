@@ -4,6 +4,7 @@ const path = require('path')
 const app = express()
 require('dotenv').config()
 const frontendRoutes = require('./app/routes/front.routes')
+const postRoutes = require('./app/routes/post.routes')
 const dbConnection = require('./config/database')
 const authRoutes = require('./app/routes/auth.routes')
 const cookieParser = require('cookie-parser')
@@ -28,6 +29,8 @@ app.use(sessionMiddleware)
 //endpoints
 app.use('/', frontendRoutes) // rutas de paginas y renderizar las vistas de leo
 app.use('/auth', authRoutes) // para las peticiones de autenticacion
+app.use('/post', postRoutes) // para las peticiones de autenticacion
+
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`)
