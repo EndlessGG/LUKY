@@ -62,6 +62,20 @@ class User {
         }
     }
 
+    static async findUserById(id) {
+        try {
+            const [rows] = await dbConnection.query(
+                'SELECT ID FROM usuarios WHERE ID = ?',
+                [id]
+            )
+            return rows[0]
+        } catch (error) {
+            console.error('Error al obtener id, model:', error)
+            throw error
+        }
+    }
+
+
     static async getAllInfoUser(email) {
         try {
             const [rows] = await dbConnection.query(

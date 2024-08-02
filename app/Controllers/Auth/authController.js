@@ -63,8 +63,8 @@ class UserController {
                 maxAge: 24 * 60 * 60 * 1000
             })
 
-            //res.status(200).json({ message: 'Inicio de sesion exitoso', token })
-            return res.redirect('/Busqueda')
+            res.status(200).json({ message: 'Inicio de sesion exitoso', token })
+            //return res.redirect('/Busqueda')
         } catch (error) {
             console.error('Error al iniciar sesion, controller:', error)
             res.status(500).json({ error: 'Error interno del servidor' })
