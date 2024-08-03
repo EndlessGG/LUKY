@@ -280,6 +280,7 @@
             <div class="menu-perfil">
                 <ul>
                     <li><a href="#" title=""><i class="icono-perfil fas fa-bullhorn"></i> Publicaciones</a></li>
+                    <li><a href="#" title="Cerrar Sesión" onclick="document.getElementById('logout-form').submit();"><i class="icono-perfil fas fa-bullhorn"></i> Cerrar Sesion</a></li>    
                 </ul>
             </div>
         </div>
@@ -290,7 +291,7 @@
         </section>
     </section>
     <!--====  End of html  ====-->
-
+    <form id="logout-form" action="/auth/logout" method="POST" style="display: none;"></form>
     <script>
         async function fetchProfileData() {
             try {
