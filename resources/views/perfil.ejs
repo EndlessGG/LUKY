@@ -272,9 +272,9 @@
                     <img src="http://localhost/multimedia/relleno/img-c9.png" alt="img">
                 </div>
                 <div class="datos-perfil">
-                    <h4 class="titulo-usuario" id="username">Nombre de usuario</h4>
-                    <p class="bio-usuario" id="email">Correo electrónico</p>
-                    <p class="bio-usuario" id="creation-date">Fecha de creación</p>
+                    <h4 class="titulo-usuario"><%= user.nombres %> <%= user.apellidoPaterno %> <%= user.apellidoMaterno %></h4>
+                    <p class="bio-usuario"><%= user.email %></p>
+                    <p class="bio-usuario">Fecha de creación: <%= user.fechaCreacion %></p>
                 </div>
             </div>
             <div class="menu-perfil">
