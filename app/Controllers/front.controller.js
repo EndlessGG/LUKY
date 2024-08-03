@@ -13,29 +13,32 @@ exports.showFormPage = (req, res) => {
 
 exports.showPerfilPage = async (req, res) => {
     try {
-        const token = req.cookies.token
-        const infoUsuario = genToken.extraerInfoToken(token)
+        const token = req.cookies.token;
+        const infoUsuario = genToken.extraerInfoToken(token);
 
         if (!infoUsuario) {
-            return res.status(401).json({ mensaje: 'Token inválido' })
+            return res.status(401).json({ mensaje: 'Token inválido' });
         }
 
-        req.usuario = infoUsuario
-        const email = req.usuario.email
-
-        const user = await User.getAllInfoUser(email)
+        req.usuario = infoUsuario;
+        const email = req.usuario.email;
+        const idPost = req.usuario.id
+        const user = await User.getAllInfoUser(email);
+        const publicaciones = await User.getAllPostUser(idPost);
 
         if (user) {
             const { pass, ...userWithoutPassword } = user;
             // Formatear la fecha
-            userWithoutPassword.fechaCreacion = moment(userWithoutPassword.fechaCreacion).format('DD/MM/YYYY')
-            res.render('perfil', { user: userWithoutPassword });
+            userWithoutPassword.fechaCreacion = moment(userWithoutPassword.fechaCreacion).format('DD/MM/YYYY');
+
+            // Renderizar la vista de perfil con el usuario y sus publicaciones
+            res.render('perfil', { user: userWithoutPassword, publicaciones });
         } else {
-            res.status(404).json({ message: 'Usuario no encontrado' })
+            res.status(404).json({ message: 'Usuario no encontrado' });
         }
     } catch (error) {
-        console.error('Error al obtener datos del usuario, controller:', error)
-        res.status(500).json({ message: 'Error interno del servidor' })
+        console.error('Error al obtener datos del usuario, controller:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
     }
 }
 
@@ -46,7 +49,7 @@ exports.showBusquedaPage = (req, res) => {
 
     if (termino) {
         publicaciones = []
-        
+
         if (publicaciones.length === 0) {
             mensaje = 'No se encontraron publicaciones'
         }

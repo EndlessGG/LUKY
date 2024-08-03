@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUKY</title>
     <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <style type="text/css">
         /*=====================================
         reset estilos
@@ -231,7 +232,8 @@
             gap: 1rem;
             margin-top: 2rem;
             overflow-y: auto;
-            max-height: 70vh; /* Limit height to 70% of viewport height */
+            max-height: 70vh;
+            /* Limit height to 70% of viewport height */
         }
 
         .post {
@@ -259,12 +261,42 @@
             display: block;
             margin-top: 1rem;
         }
+
+        /* Asegúrate de que el contenedor de publicaciones tenga un ancho definido y esté centrado */
+        .posts-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 100px;
+            margin: 0 auto;
+        }
+
+        /* Estilo para cada publicación */
+        .post {
+            width: 80%;
+            /* O el ancho que prefieras */
+            max-width: 600px;
+            /* Tamaño máximo para publicaciones grandes */
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        /* Opcional: Centrar texto dentro de la publicación */
+        .post h3,
+        .post p {
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
 
     <section class="perfil-usuario">
+
         <div class="contenedor-perfil">
             <div class="portada-perfil">
                 <div class="sombra"></div>
@@ -272,23 +304,50 @@
                     <img src="http://localhost/multimedia/relleno/img-c9.png" alt="img">
                 </div>
                 <div class="datos-perfil">
-                    <h4 class="titulo-usuario"><%= user.nombres %> <%= user.apellidoPaterno %> <%= user.apellidoMaterno %></h4>
-                    <p class="bio-usuario"><%= user.email %></p>
-                    <p class="bio-usuario">Fecha de creación: <%= user.fechaCreacion %></p>
+                    <h4 class="titulo-usuario">
+                        <%= user.nombres %>
+                            <%= user.apellidoPaterno %>
+                                <%= user.apellidoMaterno %>
+                    </h4>
+                    <p class="bio-usuario">
+                        <%= user.email %>
+                    </p>
+                    <p class="bio-usuario">Fecha de creación: <%= user.fechaCreacion %>
+                    </p>
                 </div>
             </div>
             <div class="menu-perfil">
                 <ul>
                     <li><a href="#" title=""><i class="icono-perfil fas fa-bullhorn"></i> Publicaciones</a></li>
-                    <li><a href="#" title="Cerrar Sesión" onclick="document.getElementById('logout-form').submit();"><i class="icono-perfil fas fa-bullhorn"></i> Cerrar Sesion</a></li>    
+                    <li><a href="#" title="Cerrar Sesión" onclick="document.getElementById('logout-form').submit();"><i
+                                class="icono-perfil fas fa-bullhorn"></i> Cerrar Sesion</a></li>
                 </ul>
             </div>
         </div>
 
         <section class="posts-container" id="posts-container">
-            <!-- Posts will be appended here -->
-            <!-- <button class="add-post-button">Add Post</button> -->
+            <% if (publicaciones.length===0) { %>
+                <p>Aún no has publicado nada.</p>
+                <% } else { %>
+                    <% publicaciones.forEach(publicacion=> { %>
+                        <div class="post">
+                            <h3>
+                                <%= publicacion.tituloP %>
+                            </h3>
+                            <p>
+                                <%= publicacion.descripcion %>
+                            </p>
+                            <p>Precio Inicial: <%= publicacion.precioI %>
+                            </p>
+                            <p>Precio Final: <%= publicacion.precioF %>
+                            </p>
+                            <p>Valoración: <%= publicacion.valoracion %>
+                            </p>
+                        </div>
+                        <% }) %>
+                            <% } %>
         </section>
+
     </section>
     <!--====  End of html  ====-->
     <form id="logout-form" action="/auth/logout" method="POST" style="display: none;"></form>
@@ -318,7 +377,7 @@
                     postsContainer.appendChild(postElement);
                 });
 
-               
+
             } catch (error) {
                 console.error('Error fetching profile data:', error);
             }
