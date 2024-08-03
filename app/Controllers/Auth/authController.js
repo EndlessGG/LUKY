@@ -9,7 +9,7 @@ class UserController {
     static async registro(req, res) {
         try {
             //quitar telefono y isTrabajador y meter por default 0 a istrabajdor
-            const { nombres, apellidoPaterno, apellidoMaterno, email, password/*, telefono, isTrabajador */} = req.body // lo que sacamos del form
+            const { nombres, apellidoPaterno, apellidoMaterno, email, password/*, telefono, isTrabajador */ } = req.body // lo que sacamos del form
 
             // Validación de datos de entrada
             if (!nombres || !apellidoPaterno || !apellidoMaterno || !email || !password) {
@@ -42,7 +42,7 @@ class UserController {
             const hashedPassword = await User.hashPassword(password)
 
             // Creacion del nuevo usuario
-            const newUser = new User( nombres, apellidoPaterno, apellidoMaterno, email, hashedPassword/*, telefono, isTrabajador */)
+            const newUser = new User(nombres, apellidoPaterno, apellidoMaterno, email, hashedPassword/*, telefono, isTrabajador */)
             const userId = await newUser.registerUser()
 
             //res.status(201).json({ message: 'Usuario registrado exitosamente', userId: userId.insertId })
@@ -138,32 +138,32 @@ class UserController {
             res.status(500).json({ message: 'Error interno del servidor' })
         }
     }
-    
+
     static googleAuth(req, res, next) {
         passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] })(req, res, next);
-      }
-    
-      static googleAuthCallback(req, res, next) {
+    }
+
+    static googleAuthCallback(req, res, next) {
         passport.authenticate('google', { failureRedirect: '/' })(req, res, next);
-      }
-    
-      static googleAuthCallbackRedirect(req, res) {
+    }
+
+    static googleAuthCallbackRedirect(req, res) {
         res.redirect('/busqueda');
-      }
-    
-      static async profile(req, res) {
+    }
+
+    static async proofile(req, res) {
         if (!req.isAuthenticated()) {
-          return res.redirect('/');
+            return res.redirect('/');
         }
         res.send(`Hello, ${req.user.displayName}`);
-      }
-      static async logoutt(req, res) {
+    }
+    static async logoutt(req, res) {
         req.logout((err) => {
-          if (err) { return next(err); }
-          res.redirect('/');
+            if (err) { return next(err); }
+            res.redirect('/');
         });
-      }
-    
+    }
+
 }
 
 module.exports = UserController

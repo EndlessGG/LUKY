@@ -78,6 +78,19 @@ class User {
             throw error
         }
     }
+
+    static async getAllPostUser(id) {
+        try{
+            const [rows] = await dbConnection.query(
+                'SELECT * FROM publicaciones WHERE usuarioID = ?',
+                [id]
+            )
+            return rows
+        } catch (error) {
+            console.error('Error al obtener publicaciones de usuario, model:', error)
+            throw error
+        }
+    }
 }
 
 module.exports = User

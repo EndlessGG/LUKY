@@ -17,8 +17,7 @@ exports.generarToken = (usuario) => {
 exports.extraerInfoToken = (token) => {
     try {
         if(!token){
-            // eslint-disable-next-line no-undef
-            redirect('/')
+            return null
         }
         const decodificado = jwt.verify(token, process.env.JWT_SECRET)
         return decodificado
