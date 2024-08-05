@@ -40,6 +40,6 @@ exports.createPublicacion = async (req, res) => {
 
         res.status(201).json({ id: publicacionID, message: 'Publicación creada exitosamente' })
     } catch (error) {
-        res.status(500).json({ error: 'Error al crear la publicación' })
+        res.status(500).json({ error: 'Error al crear la publicación', error })
     }
 };
