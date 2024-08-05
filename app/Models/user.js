@@ -82,6 +82,7 @@ class User {
                 'SELECT * FROM usuarios WHERE email = ?',
                 [email]
             )
+            
             return rows[0]
         } catch (error) {
             console.error('Error al obtener informacion de usuario, model:', error)
