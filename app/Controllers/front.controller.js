@@ -3,6 +3,7 @@ const path = require('path')
 const User = require('../Models/user')
 const genToken = require('../middlewares/tokenMiddleware')
 const moment = require('moment')
+const Post = require('../Models/post')
 
 exports.showIndexPage = (req, res) => {
     res.render('index')  // pagina de inicio
@@ -22,17 +23,17 @@ exports.showPerfilPage = async (req, res) => {
 
         req.usuario = infoUsuario;
         const email = req.usuario.email;
-        const idPost = req.usuario.id
+        const idPost = req.usuario.id;
+
         const user = await User.getAllInfoUser(email);
         const publicaciones = await User.getAllPostUser(idPost);
+        const categorias = await Post.getCategorias(); // Obtén las categorías
 
         if (user) {
             const { pass, ...userWithoutPassword } = user;
-            // Formatear la fecha
             userWithoutPassword.fechaCreacion = moment(userWithoutPassword.fechaCreacion).format('DD/MM/YYYY');
 
-            // Renderizar la vista de perfil con el usuario y sus publicaciones
-            res.render('perfil', { user: userWithoutPassword, publicaciones });
+            res.render('perfil', { user: userWithoutPassword, publicaciones, categorias }); // Pasa las categorías a la vista
         } else {
             res.status(404).json({ message: 'Usuario no encontrado' });
         }
@@ -41,6 +42,7 @@ exports.showPerfilPage = async (req, res) => {
         res.status(500).json({ message: 'Error interno del servidor' });
     }
 }
+
 
 exports.showBusquedaPage = (req, res) => {
     const { termino } = req.query
