@@ -21,22 +21,18 @@
                 </div>
                 <div class="datos-perfil">
                     <h4 class="titulo-usuario">
-                        <%= user.nombres %>
-                            <%= user.apellidoPaterno %>
-                                <%= user.apellidoMaterno %>
+                        <%= user.nombres %> <%= user.apellidoPaterno %> <%= user.apellidoMaterno %>
                     </h4>
                     <p class="bio-usuario">
                         <%= user.email %>
                     </p>
-                    <p class="bio-usuario">Fecha de creación: <%= user.fechaCreacion %>
-                    </p>
+                    <p class="bio-usuario">Fecha de creación: <%= user.fechaCreacion %></p>
                 </div>
             </div>
             <div class="menu-perfil">
                 <ul>
-                    <li>  <button id="agregar-publicacion" >Agregar Publicación</button></li>
-                    <li><a href="#" title="Cerrar Sesión" onclick="document.getElementById('logout-form').submit();"><i
-                                class="icono-perfil fas fa-bullhorn"></i> Cerrar Sesion</a></li>
+                    <li><button id="agregar-publicacion">Agregar Publicación</button></li>
+                    <li><a href="#" title="Cerrar Sesión" onclick="document.getElementById('logout-form').submit();"><i class="icono-perfil fas fa-bullhorn"></i> Cerrar Sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -44,51 +40,115 @@
         <section class="posts-container" id="posts-container">
             <% if (publicaciones.length === 0) { %>
                 <p>Aún no has publicado nada.</p>
-                <% } else { %>
-                    <% publicaciones.forEach(publicacion=> { %>
-                        <div class="post">
-                            <h3>
-                                <%= publicacion.tituloP %>
-                            </h3>
-                            <p>
-                                <%= publicacion.descripcion %>
-                            </p>
-                            <p>Precio Inicial: <%= publicacion.precioI %>
-                            </p>
-                            <p>Precio Final: <%= publicacion.precioF %>
-                            </p>
-                            <p>Valoración: <%= publicacion.valoracion %>
-                            </p>
-                        </div>
-                        <% }) %>
-                            <% } %>
+            <% } else { %>
+                <% publicaciones.forEach(publicacion => { %>
+                    <div class="post">
+                        <h3><%= publicacion.tituloP %></h3>
+                        <p><%= publicacion.descripcion %></p>
+                        <p>Precio Inicial: <%= publicacion.precioI %></p>
+                        <p>Precio Final: <%= publicacion.precioF %></p>
+                        <p>Valoración: <%= publicacion.valoracion %></p>
+                    </div>
+                <% }) %>
+            <% } %>
         </section>
-        <!--Seccion de modal del HTML-->
+
+        <!-- Sección de modal del HTML -->
         <div id="modal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <form id="modal-form" method="post" action="/post/publicar">
+                    <h1>Agrega una publicación</h1>
                     <input type="text" id="tituloP" name="tituloP" placeholder="Título Publicación"><br>
                     <input type="text" id="descripcion" name="descripcion" placeholder="Descripción"><br>
                     <input type="text" id="precioI" name="precioI" placeholder="Precio Inicial"><br>
                     <input type="text" id="precioF" name="precioF" placeholder="Precio Final"><br>
-                    <select id="input5">
+                    <select id="input5" name="input5">
                         <option value="" disabled selected>Seleccione una opción</option>
                         <option value="1">Opción 1</option>
                         <option value="2">Opción 2</option>
                         <option value="3">Opción 3</option>
                     </select><br>
-                    <button type="submit" id="submit-button">Submit</button>
+                    <button type="submit" id="submit-button">Agregar Publicación</button>
                 </form>
                 <p id="modalMessage" style="color: red;"></p> <!-- Mensaje de error -->
             </div>
         </div>
     </section>
-    <!--====  End of html  ====-->
+
     <form id="logout-form" action="/auth/logout" method="POST" style="display: none;"></form>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Elementos del modal
+            const modal = document.getElementById("modal");
+            const closeButton = document.getElementsByClassName("close")[0];
+            const modalMessage = document.getElementById("modalMessage");
 
-<script src="/js/perfi.js"></script>
+            // Mostrar el modal
+            document.getElementById('agregar-publicacion').addEventListener('click', function () {
+                modal.style.display = "block";
+            });
+
+            // Cerrar el modal
+            closeButton.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            // ACTIVACION DE MODAL SCRIPT PARA LA CARGA
+            document.getElementById('modal-form').addEventListener('submit', function (event) {
+                let isValid = true;
+                let errorMessage = "Por favor complete los siguientes campos:\n";
+
+                const tituloP = document.getElementById('tituloP');
+                if (tituloP.value.trim() === '') {
+                    isValid = false;
+                    errorMessage += "- Título de la Publicación\n";
+                }
+
+                const descripcion = document.getElementById('descripcion');
+                if (descripcion.value.trim() === '') {
+                    isValid = false;
+                    errorMessage += "- Descripción\n";
+                }
+
+                const precioI = document.getElementById('precioI');
+                if (precioI.value.trim() === '') {
+                    isValid = false;
+                    errorMessage += "- Precio Inicial\n";
+                }
+
+                const input5 = document.getElementById('input5');
+                if (input5.value === '') {
+                    isValid = false;
+                    errorMessage += "- Selección de Opción\n";
+                }
+
+                const precioF = document.getElementById('precioF');
+                if (precioF.value.trim() === '') {
+                    isValid = false;
+                    errorMessage += "- Precio Final\n";
+                }
+
+                if (!isValid) {
+                    event.preventDefault();
+                    showModal(errorMessage);
+                }
+            });
+
+            // Función para mostrar el modal con un mensaje
+            function showModal(message) {
+                modalMessage.textContent = message;
+                modal.style.display = "block";
+            }
+        });
+    </script>
 </body>
 
 </html>
