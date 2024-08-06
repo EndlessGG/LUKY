@@ -72,11 +72,11 @@
                     <input type="text" id="descripcion" name="descripcion" placeholder="Descripción"><br>
                     <input type="text" id="precioI" name="precioI" placeholder="Precio Inicial"><br>
                     <input type="text" id="precioF" name="precioF" placeholder="Precio Final"><br>
-                    <select id="input5">
+                    <select id="input5" name="categoriaID">
                         <option value="" disabled selected>Seleccione una opción</option>
-                        <option value="1">Opción 1</option>
-                        <option value="2">Opción 2</option>
-                        <option value="3">Opción 3</option>
+                        <% categorias.forEach(categoria => { %>
+                            <option value="<%= categoria.ID %>"><%= categoria.tipoCategoria %></option>
+                        <% }) %>
                     </select><br>
                     <button type="submit" id="submit-button">Submit</button>
                 </form>
