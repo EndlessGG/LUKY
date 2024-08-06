@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Validar el formulario del modal
+    // ACTIVACION DE MODAL SCRIPT PARA LA CARGA
     document.getElementById('modal-form').addEventListener('submit', function(event) {
         let isValid = true;
         let errorMessage = "Por favor complete los siguientes campos:\n";
