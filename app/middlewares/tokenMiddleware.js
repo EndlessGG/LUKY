@@ -16,6 +16,9 @@ exports.generarToken = (usuario) => {
 // para poder decodificar el token y poder extraer la informacion del usuario que se guarda en este token
 exports.extraerInfoToken = (token) => {
     try {
+        if(!token){
+            return null
+        }
         const decodificado = jwt.verify(token, process.env.JWT_SECRET)
         return decodificado
     } catch (error) {

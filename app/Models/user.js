@@ -2,14 +2,12 @@ const dbConnection = require('../../config/database')
 const bcrypt = require('bcrypt')
 
 class User {
-    constructor(nombres, apellidoPaterno, apellidoMaterno, email, pass/*, telefono, isTrabajador*/) {
+    constructor(nombres, apellidoPaterno, apellidoMaterno, email, pass) {
         this.nombres = nombres
         this.apellidoPaterno = apellidoPaterno
         this.apellidoMaterno = apellidoMaterno
         this.email = email
         this.pass = pass
-        // this.telefono = telefono
-        // this.isTrabajador = isTrabajador
     }
 
     static async hashPassword(password) {
@@ -41,9 +39,7 @@ class User {
                     this.apellidoPaterno,
                     this.apellidoMaterno,
                     this.email,
-                    this.pass,
-                    // this.telefono,
-                    // this.isTrabajador
+                    this.pass
                 ]
             )
             return result
@@ -66,18 +62,47 @@ class User {
         }
     }
 
+    static async findUserById(id) {
+        try {
+            const [rows] = await dbConnection.query(
+                'SELECT ID FROM usuarios WHERE ID = ?',
+                [id]
+            )
+            return rows[0]
+        } catch (error) {
+            console.error('Error al obtener id, model:', error)
+            throw error
+        }
+    }
+
+
     static async getAllInfoUser(email) {
         try {
             const [rows] = await dbConnection.query(
                 'SELECT * FROM usuarios WHERE email = ?',
                 [email]
             )
+            
             return rows[0]
         } catch (error) {
             console.error('Error al obtener informacion de usuario, model:', error)
             throw error
         }
     }
+
+    static async getAllPostUser(id) {
+    try {
+        const [rows] = await dbConnection.query(
+            'SELECT * FROM publicaciones WHERE usuarioID = ?',
+            [id]
+        );
+        return rows;
+    } catch (error) {
+        console.error('Error al obtener publicaciones del usuario, model:', error);
+        throw error;
+    }
+}
+
 }
 
 module.exports = User

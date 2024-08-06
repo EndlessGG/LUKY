@@ -1,5 +1,9 @@
 const passport = require('passport')
 const path = require('path')
+const User = require('../Models/user')
+const genToken = require('../middlewares/tokenMiddleware')
+const moment = require('moment')
+const Post = require('../Models/post')
 
 exports.showIndexPage = (req, res) => {
     res.render('index')  // pagina de inicio
@@ -7,9 +11,39 @@ exports.showIndexPage = (req, res) => {
 exports.showFormPage = (req, res) => {
     res.render('formulario', { errorEmail_l: null, email: '', errorPassword_l: null })  // pagina de formulario
 }
-exports.showPerfilPage = (req, res) => {
-    res.render('perfil')  // pagina de perfil
+
+exports.showPerfilPage = async (req, res) => {
+    try {
+        const token = req.cookies.token;
+        const infoUsuario = genToken.extraerInfoToken(token);
+
+        if (!infoUsuario) {
+            return res.status(401).json({ mensaje: 'Token inválido' });
+        }
+
+        req.usuario = infoUsuario;
+        const email = req.usuario.email;
+        const idPost = req.usuario.id;
+
+        const user = await User.getAllInfoUser(email);
+        const publicaciones = await User.getAllPostUser(idPost);
+        const categorias = await Post.getCategorias(); // Obtén las categorías
+
+        if (user) {
+            const { pass, ...userWithoutPassword } = user;
+            userWithoutPassword.fechaCreacion = moment(userWithoutPassword.fechaCreacion).format('DD/MM/YYYY');
+
+            res.render('perfil', { user: userWithoutPassword, publicaciones, categorias }); // Pasa las categorías a la vista
+        } else {
+            res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+    } catch (error) {
+        console.error('Error al obtener datos del usuario, controller:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
+    }
 }
+
+
 exports.showBusquedaPage = (req, res) => {
     const { termino } = req.query
     let publicaciones = []
@@ -17,7 +51,7 @@ exports.showBusquedaPage = (req, res) => {
 
     if (termino) {
         publicaciones = []
-        
+
         if (publicaciones.length === 0) {
             mensaje = 'No se encontraron publicaciones'
         }

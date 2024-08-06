@@ -1,38 +1,34 @@
-const bodyParser = require('body-parser');
-const express = require('express');
-const path = require('path');
-const app = express();
-require('dotenv').config();
-const frontendRoutes = require('./app/routes/front.routes');
+const bodyParser = require('body-parser')
+const express = require('express')
+const path = require('path')
+const app = express()
+require('dotenv').config()
+const frontendRoutes = require('./app/routes/front.routes')
+const postRoutes = require('./app/routes/post.routes')
+const dbConnection = require('./config/database')
 const authRoutes = require('./app/routes/auth.routes')
 const cookieParser = require('cookie-parser')
 const sessionMiddleware = require('./app/middlewares/sessionMiddleware')
 const jwt = require('jsonwebtoken')
-const session = require('express-session');
-const passport = require('./config/passportConfig');
-const AuthController = require('./app/Controllers/Auth/authController');
-const searchRoutes = require('./app/routes/search.routes')
 
 
+//motor de vistas ejs
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'resources/views'))
+app.use(express.static(path.join(__dirname, 'resources/public'))) // archivos estaticos
 
-const PORT = process.env.PORT || 3000;
-
-// Motor de vistas ejs
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'resources/views'));
-app.use(express.static(path.join(__dirname, 'resources/public'))); // Archivos estáticos
-
-// Middleware
-app.use(express.json());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false })); // Para los formularios y más
+//middleware
+app.use(express.json())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false })) // para los formularios y mas
 app.use(cookieParser())
 app.use(sessionMiddleware)
 
-// Endpoints
-app.use('/', frontendRoutes); // Rutas de páginas
-app.use('/auth', authRoutes)
-app.use('/search', searchRoutes)
+
+//endpoints
+app.use('/', frontendRoutes) // rutas de paginas y renderizar las vistas de leo
+app.use('/auth', authRoutes) // para las peticiones de autenticacion
+app.use('/post', postRoutes) // para las peticiones de autenticacion
 
 // Ruta para la página de inicio de sesión
 app.get('/formulario', (req, res) => {
