@@ -10,6 +10,7 @@ const authRoutes = require('./app/routes/auth.routes')
 const cookieParser = require('cookie-parser')
 const sessionMiddleware = require('./app/middlewares/sessionMiddleware')
 const jwt = require('jsonwebtoken')
+const searchRoutes = require('./app/routes/search.routes')
 
 const PORT = process.env.PORT || 3000
 
@@ -30,6 +31,7 @@ app.use(sessionMiddleware)
 app.use('/', frontendRoutes) // rutas de paginas y renderizar las vistas de leo
 app.use('/auth', authRoutes) // para las peticiones de autenticacion
 app.use('/post', postRoutes) // para las peticiones de autenticacion
+app.use('/search', searchRoutes)
 
 
 app.listen(PORT, () => {

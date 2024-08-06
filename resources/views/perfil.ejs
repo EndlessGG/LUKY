@@ -16,7 +16,7 @@
         <nav>
             <ul>
                 <li><a href="/Acerca">Acerca de</a></li>
-                <li><a href="#">Servicios</a></li>
+                <li><a href="/Busqueda">Servicios</a></li>
                 <li><a href="/Perfil">Mi Perfil</a></li>
             </ul>
         </nav>
@@ -40,13 +40,13 @@
             </div>
             <div class="menu-perfil">
                 <ul>
-                    <li><button id="agregar-publicacion">Agregar Publicación</button></li>
+                    <li><a id="agregar-publicacion"> <i class="icono-perfil fas fa-bullhorn"></i> Agregar Publicación</a></li>
                     <li><a href="#" title="Cerrar Sesión" onclick="document.getElementById('logout-form').submit();"><i class="icono-perfil fas fa-bullhorn"></i> Cerrar Sesión</a></li>
                 </ul>
             </div>
         </div>
 
-        <section class="posts-container" id="posts-container">
+        <div class="posts-container" id="posts-container">
             <% if (publicaciones.length === 0) { %>
                 <p>Aún no has publicado nada.</p>
             <% } else { %>
@@ -60,7 +60,7 @@
                     </div>
                 <% }) %>
             <% } %>
-        </section>
+        </div>
 
         <!-- Sección de modal del HTML -->
         <div id="modal" class="modal">

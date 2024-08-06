@@ -126,12 +126,12 @@ class UserController {
         }
         res.send(`Hello, ${req.user.displayName}`);
       }
-      static async logout(req, res) {
-        req.logout((err) => {
-          if (err) { return next(err); }
-          res.redirect('/');
-        });
-      }
+      //static async logout(req, res) {
+       // req.logout((err) => {
+         // if (err) { return next(err); }
+          //res.redirect('/');
+        //});
+     // }
 }
 
 module.exports = UserController
