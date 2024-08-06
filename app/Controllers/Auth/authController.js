@@ -63,8 +63,8 @@ class UserController {
                 maxAge: 24 * 60 * 60 * 1000
             })
 
-            res.status(200).json({ message: 'Inicio de sesion exitoso', token })
-            //return res.redirect('/Busqueda')
+            //res.status(200).json({ message: 'Inicio de sesion exitoso', token })
+            return res.redirect('/busqueda')
         } catch (error) {
             console.error('Error al iniciar sesion, controller:', error)
             res.status(500).json({ error: 'Error interno del servidor' })
@@ -108,9 +108,6 @@ class UserController {
             res.status(500).json({ message: 'Error interno del servidor' })
         }
     }
-}
-
-
     static googleAuth(req, res, next) {
         passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] })(req, res, next);
       }
@@ -135,4 +132,6 @@ class UserController {
           res.redirect('/');
         });
       }
+}
+
 module.exports = UserController

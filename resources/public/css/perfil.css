@@ -18,6 +18,52 @@ body {
     font-family: "Arial", Segoe UI, Tahoma, sans-serif, Helvetica Neue, Helvetica;
 }
 
+header {
+    background-color: #3AA8AD;
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #4CC3C8;
+    border-radius: 5px;
+}
+
+
+footer {
+    background-color: #3AA8AD;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
 /*=====================================
 estilos de la utilidad
 Copiar esto
