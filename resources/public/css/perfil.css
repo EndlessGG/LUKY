@@ -261,8 +261,7 @@ Copiar esto
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1rem;
     margin-top: 2rem;
-   
-  
+
     /* Limit height to 70% of viewport height */
 }
 
@@ -319,6 +318,39 @@ Copiar esto
 .post h3,
 .post p {
     text-align: center;
+}
+
+.post-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px; /* Espacio superior para separar los botones del contenido de la publicación */
+    width: 100%;
+}
+
+.edit-btn, .delete-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s;
+    flex: 0 0 auto; /* No permite que los botones se estiren */
+}
+
+.edit-btn {
+    background-color: #3AA8AD;
+}
+
+.edit-btn:hover {
+    background-color: #4CB0C6;
+}
+
+.delete-btn {
+    background-color: #DC3545; /* Color base rojo */
+}
+
+.delete-btn:hover {
+    background-color: #FF6347; /* Color rojo más claro */
 }
 
 /* SECCION DE ESTILO DE MODAL PERFIL */
