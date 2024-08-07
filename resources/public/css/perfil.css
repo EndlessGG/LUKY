@@ -261,8 +261,8 @@ Copiar esto
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1rem;
     margin-top: 2rem;
-    overflow-y: auto;
-    max-height: 70vh;
+   
+  
     /* Limit height to 70% of viewport height */
 }
 
