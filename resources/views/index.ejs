@@ -26,7 +26,7 @@
             <p>¡Aquí puedes encontrar todo tipo de servicio!</p>
             <div class="container">
                 <input type="text" placeholder="Buscar....">
-                <button><i class="fas fa-search"></i></button>
+                <button id="searchButton"><i class="fas fa-search"></i></button>
             </div>
         </section>
     </main>
@@ -34,5 +34,11 @@
     <footer>
         <p>&copy; 2024 LUKY. Todos los derechos reservados.</p>
     </footer>
+
+    <script>
+        document.getElementById('searchButton').addEventListener('click', function() {
+            window.location.href = '/formulario';
+        });
+    </script>
 </body>
 </html>
