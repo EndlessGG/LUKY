@@ -50,7 +50,7 @@
                 <p>Aún no has publicado nada.</p>
             <% } else { %>
                 <% publicaciones.forEach(publicacion => { %>
-                    <div class="post" data-id="<%= publicacion.id %>">
+                    <div class="post" id="post-<%= publicacion.id %>" data-id="<%= publicacion.id %>">
                         <h3><%= publicacion.tituloP %></h3>
                         <p><%= publicacion.descripcion %></p>
                         <p>Precio Inicial: <%= publicacion.precioI %></p>
@@ -58,7 +58,8 @@
                         <p>Valoración: <%= publicacion.valoracion %></p>
                         <div class="post-buttons">
                             <button class="edit-btn">Editar Publicación</button>
-                            <button class="delete-btn">Eliminar Publicación</button>
+                            <button class="delete-btn" onclick="openDeleteModal('<%= publicacion.id %>')">Eliminar Publicación</button>
+
                         </div>
                     </div>
                 <% }) %>
@@ -68,7 +69,7 @@
         <!-- Modal para agregar publicación -->
         <div id="modal" class="modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <span class="close" id="close-add-modal">&times;</span>
                 <form id="modal-form" method="post" action="/post/publicar">
                     <h1>Agrega una publicación</h1>
                     <input type="text" id="tituloP" name="tituloP" placeholder="Título Publicación"><br>
@@ -90,7 +91,7 @@
         <!-- Modal para editar publicación -->
         <div id="edit-modal" class="modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <span class="close" id="close-edit-modal">&times;</span>
                 <form id="edit-modal-form" method="post" action="/post/editar">
                     <h1>Editar publicación</h1>
                     <input type="hidden" id="edit-id" name="id">
@@ -109,6 +110,20 @@
                 <p id="edit-modalMessage" style="color: red;"></p> <!-- Mensaje de error -->
             </div>
         </div>
+
+                <!-- Modal de Eliminación -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeDeleteModal()">&times;</span>
+                <h2>Confirmar publicación</h2>
+                <p>¿Estás seguro de que deseas eliminar esta publicación?</p>
+                <div class="modal-buttons">
+                    <button id="confirmDeleteButton" class="button">Confirmar</button>
+                    <button class="button cancel-btn" onclick="closeDeleteModal()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
     </section>
     <footer>
         <p>&copy; 2024 LUKY. Todos los derechos reservados.</p>
@@ -119,12 +134,12 @@
         document.addEventListener('DOMContentLoaded', function () {
             // Elementos del modal para agregar publicación
             const modal = document.getElementById("modal");
-            const closeButton = document.getElementsByClassName("close")[0];
+            const closeAddModalButton = document.getElementById("close-add-modal");
             const modalMessage = document.getElementById("modalMessage");
 
             // Elementos del modal para editar publicación
             const editModal = document.getElementById("edit-modal");
-            const editCloseButton = document.getElementsByClassName("close")[1];
+            const closeEditModalButton = document.getElementById("close-edit-modal");
             const editModalMessage = document.getElementById("edit-modalMessage");
 
             // Mostrar el modal para agregar publicación
@@ -133,8 +148,13 @@
             });
 
             // Cerrar el modal para agregar publicación
-            closeButton.onclick = function () {
+            closeAddModalButton.onclick = function () {
                 modal.style.display = "none";
+            }
+
+            // Cerrar el modal para editar publicación
+            closeEditModalButton.onclick = function () {
+                editModal.style.display = "none";
             }
 
             window.onclick = function (event) {
@@ -142,6 +162,8 @@
                     modal.style.display = "none";
                 } else if (event.target === editModal) {
                     editModal.style.display = "none";
+                } else if (event.target === document.getElementById('deleteModal')) {
+                    closeDeleteModal();
                 }
             }
 
@@ -165,16 +187,46 @@
                 });
             });
 
-            // Cerrar el modal para editar publicación
-            editCloseButton.onclick = function () {
-                editModal.style.display = "none";
-            }
-
             // Manejar el envío del formulario de edición
             document.getElementById('edit-modal-form').addEventListener('submit', function (event) {
-               
+                // Implementa la lógica para enviar los cambios al backend aquí
             });
         });
+
+        let deletePostId = null;
+
+        function openDeleteModal(postId) {
+            deletePostId = postId;
+            document.getElementById('deleteModal').style.display = 'block';
+        }
+
+        function closeDeleteModal() {
+            deletePostId = null;
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+
+        document.getElementById('confirmDeleteButton').addEventListener('click', confirmDelete);
+
+        function confirmDelete() {
+            if (deletePostId) {
+                fetch(`/api/deletePost/${deletePostId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById(`post-${deletePostId}`).remove();
+                        closeDeleteModal();
+                        alert(`Publicación con ID ${deletePostId} eliminada`);
+                    } else {
+                        alert('Error al eliminar la publicación');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al eliminar la publicación');
+                });
+            }
+        }
     </script>
 </body>
 </html>
