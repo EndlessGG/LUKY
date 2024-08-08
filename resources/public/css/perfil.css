@@ -52,7 +52,6 @@ nav ul li a:hover {
     border-radius: 5px;
 }
 
-
 footer {
     background-color: #3AA8AD;
     color: white;
@@ -64,10 +63,6 @@ footer {
     z-index: 1000;
 }
 
-/*=====================================
-estilos de la utilidad
-Copiar esto
-=====================================*/
 .perfil-usuario {
     background-color: #d8f5f4;
     color: #333;
@@ -261,8 +256,6 @@ Copiar esto
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1rem;
     margin-top: 2rem;
-
-    /* Limit height to 70% of viewport height */
 }
 
 .post {
@@ -291,7 +284,6 @@ Copiar esto
     margin-top: 1rem;
 }
 
-/* Asegúrate de que el contenedor de publicaciones tenga un ancho definido y esté centrado */
 .posts-container {
     display: flex;
     flex-direction: column;
@@ -300,12 +292,9 @@ Copiar esto
     margin: 0 auto;
 }
 
-/* Estilo para cada publicación */
 .post {
     width: 80%;
-    /* O el ancho que prefieras */
     max-width: 600px;
-    /* Tamaño máximo para publicaciones grandes */
     padding: 20px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
@@ -314,7 +303,6 @@ Copiar esto
     background-color: #fff;
 }
 
-/* Opcional: Centrar texto dentro de la publicación */
 .post h3,
 .post p {
     text-align: center;
@@ -323,7 +311,7 @@ Copiar esto
 .post-buttons {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px; /* Espacio superior para separar los botones del contenido de la publicación */
+    margin-top: 10px;
     width: 100%;
 }
 
@@ -334,7 +322,7 @@ Copiar esto
     cursor: pointer;
     color: white;
     transition: background-color 0.3s;
-    flex: 0 0 auto; /* No permite que los botones se estiren */
+    flex: 0 0 auto;
 }
 
 .edit-btn {
@@ -346,39 +334,37 @@ Copiar esto
 }
 
 .delete-btn {
-    background-color: #DC3545; /* Color base rojo */
+    background-color: #DC3545;
 }
 
 .delete-btn:hover {
-    background-color: #FF6347; /* Color rojo más claro */
+    background-color: #FF6347;
 }
-
-/* SECCION DE ESTILO DE MODAL PERFIL */
 
 /* Modal Styles */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
     padding-top: 60px;
 }
 
 .modal-content {
-    background-color: #ffffff; /* Background color */
-    margin: 5% auto; /* 5% from the top and centered */
+    background-color: #ffffff;
+    margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    max-width: 500px; /* Limit the max-width */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add shadow */
-    animation: animateModal 0.4s; /* Animate modal opening */
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: animateModal 0.4s;
 }
 
 @keyframes animateModal {
@@ -406,9 +392,8 @@ Copiar esto
     cursor: pointer;
 }
 
-/* Button Style */
-#modal-form .button, /* Style specific to button within modal form */
-#modal-form button { /* Ensure button within form uses correct style */
+#modal-form .button,
+#modal-form button {
     width: 170px;
     height: 45px;
     font-size: 15px;
@@ -420,7 +405,6 @@ Copiar esto
     color: white;
 }
 
-/* Centering Button in Modal */
 #modal-form {
     display: flex;
     flex-direction: column;
@@ -428,10 +412,9 @@ Copiar esto
 }
 
 #modal-form button {
-    margin-top: 20px; /* Add some space above the button */
+    margin-top: 20px;
 }
 
-/* Label and Options Style */
 label {
     display: block;
     margin-bottom: 10px;
@@ -457,11 +440,77 @@ select {
 }
 
 textarea {
-    resize: vertical; /* Allow vertical resize only */
+    resize: vertical;
 }
 
-/* Centering H1 in Modal */
 .modal-content h1 {
     text-align: center;
-    margin-bottom: 20px; /* Space below the heading */
+    margin-bottom: 20px;
+}
+
+/* New styles for the edit post modal */
+.edit-modal-content {
+    background-color: #ffffff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: animateModal 0.4s;
+}
+
+#edit-modal-form .button,
+#edit-modal-form button {
+    width: 170px;
+    height: 45px;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    background-color: #3AB397;
+    color: white;
+}
+
+#edit-modal-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#edit-modal-form button {
+    margin-top: 20px;
+}
+
+#edit-modal-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+#edit-modal-form select,
+#edit-modal-form input[type="text"],
+#edit-modal-form input[type="password"],
+#edit-modal-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#edit-modal-form select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23333" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>') no-repeat right 10px center;
+    background-size: 8px 10px;
+}
+
+#edit-modal-form textarea {
+    resize: vertical;
 }

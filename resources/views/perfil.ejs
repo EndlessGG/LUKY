@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,6 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
-
 <body>
     <header>
         <nav>
@@ -41,7 +39,7 @@
             <div class="menu-perfil">
                 <ul>
                     <li><a id="agregar-publicacion"> <i class="icono-perfil fas fa-bullhorn"></i> Agregar Publicación</a></li>
-                    <li><a id="agregar-publicacion"> <i class="icono-perfil fas fa-bullhorn"></i> Editar Perfil</a></li>
+                    <li><a id="editar-perfil"> <i class="icono-perfil fas fa-bullhorn"></i> Editar Perfil</a></li>
                     <li><a href="#" title="Cerrar Sesión" onclick="document.getElementById('logout-form').submit();"><i class="icono-perfil fas fa-bullhorn"></i> Cerrar Sesión</a></li>
                 </ul>
             </div>
@@ -52,7 +50,7 @@
                 <p>Aún no has publicado nada.</p>
             <% } else { %>
                 <% publicaciones.forEach(publicacion => { %>
-                    <div class="post">
+                    <div class="post" data-id="<%= publicacion.id %>">
                         <h3><%= publicacion.tituloP %></h3>
                         <p><%= publicacion.descripcion %></p>
                         <p>Precio Inicial: <%= publicacion.precioI %></p>
@@ -67,7 +65,7 @@
             <% } %>
         </div>
 
-        <!-- Sección de modal del HTML -->
+        <!-- Modal para agregar publicación -->
         <div id="modal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -88,6 +86,29 @@
                 <p id="modalMessage" style="color: red;"></p> <!-- Mensaje de error -->
             </div>
         </div>
+
+        <!-- Modal para editar publicación -->
+        <div id="edit-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="edit-modal-form" method="post" action="/post/editar">
+                    <h1>Editar publicación</h1>
+                    <input type="hidden" id="edit-id" name="id">
+                    <input type="text" id="edit-tituloP" name="tituloP" placeholder="Título Publicación"><br>
+                    <input type="text" id="edit-descripcion" name="descripcion" placeholder="Descripción"><br>
+                    <input type="text" id="edit-precioI" name="precioI" placeholder="Precio Inicial"><br>
+                    <input type="text" id="edit-precioF" name="precioF" placeholder="Precio Final"><br>
+                    <select id="edit-input5" name="categoriaID">
+                        <option value="" disabled selected>Seleccione una opción</option>
+                        <% categorias.forEach(categoria => { %>
+                            <option value="<%= categoria.ID %>"><%= categoria.tipoCategoria %></option>
+                        <% }) %>
+                    </select><br>
+                    <button type="submit" id="edit-submit-button">Guardar Cambios</button>
+                </form>
+                <p id="edit-modalMessage" style="color: red;"></p> <!-- Mensaje de error -->
+            </div>
+        </div>
     </section>
     <footer>
         <p>&copy; 2024 LUKY. Todos los derechos reservados.</p>
@@ -96,17 +117,22 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Elementos del modal
+            // Elementos del modal para agregar publicación
             const modal = document.getElementById("modal");
             const closeButton = document.getElementsByClassName("close")[0];
             const modalMessage = document.getElementById("modalMessage");
 
-            // Mostrar el modal
+            // Elementos del modal para editar publicación
+            const editModal = document.getElementById("edit-modal");
+            const editCloseButton = document.getElementsByClassName("close")[1];
+            const editModalMessage = document.getElementById("edit-modalMessage");
+
+            // Mostrar el modal para agregar publicación
             document.getElementById('agregar-publicacion').addEventListener('click', function () {
                 modal.style.display = "block";
             });
 
-            // Cerrar el modal
+            // Cerrar el modal para agregar publicación
             closeButton.onclick = function () {
                 modal.style.display = "none";
             }
@@ -114,57 +140,41 @@
             window.onclick = function (event) {
                 if (event.target === modal) {
                     modal.style.display = "none";
+                } else if (event.target === editModal) {
+                    editModal.style.display = "none";
                 }
             }
 
-            // ACTIVACION DE MODAL SCRIPT PARA LA CARGA
-            document.getElementById('modal-form').addEventListener('submit', function (event) {
-                let isValid = true;
-                let errorMessage = "Por favor complete los siguientes campos:\n";
+            // Mostrar el modal para editar publicación
+            document.querySelectorAll('.edit-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const post = this.closest('.post');
+                    const id = post.getAttribute('data-id');
+                    const tituloP = post.querySelector('h3').textContent;
+                    const descripcion = post.querySelectorAll('p')[0].textContent;
+                    const precioI = post.querySelectorAll('p')[1].textContent.split(': ')[1];
+                    const precioF = post.querySelectorAll('p')[2].textContent.split(': ')[1];
 
-                const tituloP = document.getElementById('tituloP');
-                if (tituloP.value.trim() === '') {
-                    isValid = false;
-                    errorMessage += "- Título de la Publicación\n";
-                }
+                    document.getElementById('edit-id').value = id;
+                    document.getElementById('edit-tituloP').value = tituloP;
+                    document.getElementById('edit-descripcion').value = descripcion;
+                    document.getElementById('edit-precioI').value = precioI;
+                    document.getElementById('edit-precioF').value = precioF;
 
-                const descripcion = document.getElementById('descripcion');
-                if (descripcion.value.trim() === '') {
-                    isValid = false;
-                    errorMessage += "- Descripción\n";
-                }
-
-                const precioI = document.getElementById('precioI');
-                if (precioI.value.trim() === '') {
-                    isValid = false;
-                    errorMessage += "- Precio Inicial\n";
-                }
-
-                const input5 = document.getElementById('input5');
-                if (input5.value === '') {
-                    isValid = false;
-                    errorMessage += "- Selección de Opción\n";
-                }
-
-                const precioF = document.getElementById('precioF');
-                if (precioF.value.trim() === '') {
-                    isValid = false;
-                    errorMessage += "- Precio Final\n";
-                }
-
-                if (!isValid) {
-                    event.preventDefault();
-                    showModal(errorMessage);
-                }
+                    editModal.style.display = "block";
+                });
             });
 
-            // Función para mostrar el modal con un mensaje
-            function showModal(message) {
-                modalMessage.textContent = message;
-                modal.style.display = "block";
+            // Cerrar el modal para editar publicación
+            editCloseButton.onclick = function () {
+                editModal.style.display = "none";
             }
+
+            // Manejar el envío del formulario de edición
+            document.getElementById('edit-modal-form').addEventListener('submit', function (event) {
+               
+            });
         });
     </script>
 </body>
-
 </html>
