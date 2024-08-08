@@ -2,12 +2,13 @@ const dbConnection = require('../../config/database')
 const bcrypt = require('bcrypt')
 
 class User {
-    constructor(nombres, apellidoPaterno, apellidoMaterno, email, pass) {
+    constructor(nombres, apellidoPaterno, apellidoMaterno, email, pass, googleId) {
         this.nombres = nombres
         this.apellidoPaterno = apellidoPaterno
         this.apellidoMaterno = apellidoMaterno
         this.email = email
         this.pass = pass
+        this.googleId = googleId
     }
 
     static async hashPassword(password) {
@@ -25,7 +26,7 @@ class User {
             const isMatch = await bcrypt.compare(password, hashedPassword)
             return isMatch
         } catch (error) {
-            console.error('Error al cmoparar password, model:', error)
+            console.error('Error al comparar password, model:', error)
             throw error
         }
     }
@@ -33,13 +34,14 @@ class User {
     async registerUser() {
         try {
             const [result] = await dbConnection.query(
-                'INSERT INTO usuarios (nombres, apellidoPaterno, apellidoMaterno, email, pass) VALUES (?, ?, ?, ?, ?)',
+                'INSERT INTO usuarios (nombres, apellidoPaterno, apellidoMaterno, email, pass, googleId) VALUES (?, ?, ?, ?, ?, ?)',
                 [
                     this.nombres,
                     this.apellidoPaterno,
                     this.apellidoMaterno,
                     this.email,
-                    this.pass
+                    this.pass,
+                    this.googleId
                 ]
             )
             return result
@@ -52,7 +54,7 @@ class User {
     static async findUserByEmail(email) {
         try {
             const [rows] = await dbConnection.query(
-                'SELECT ID, email, pass FROM usuarios WHERE email = ?',
+                'SELECT ID, email, pass, googleId FROM usuarios WHERE email = ?',
                 [email]
             )
             return rows[0]
@@ -75,7 +77,6 @@ class User {
         }
     }
 
-
     static async getAllInfoUser(email) {
         try {
             const [rows] = await dbConnection.query(
@@ -91,97 +92,42 @@ class User {
     }
 
     static async getAllPostUser(id) {
-    try {
-        const [rows] = await dbConnection.query(
-            'SELECT * FROM publicaciones WHERE usuarioID = ?',
-            [id]
-        );
-        return rows;
-    } catch (error) {
-        console.error('Error al obtener publicaciones del usuario, model:', error);
-        throw error;
+        try {
+            const [rows] = await dbConnection.query(
+                'SELECT * FROM publicaciones WHERE usuarioID = ?',
+                [id]
+            );
+            return rows;
+        } catch (error) {
+            console.error('Error al obtener publicaciones del usuario, model:', error);
+            throw error;
+        }
+    }
+
+    static async findOrCreateGoogleUser(profile) {
+        try {
+            const [rows] = await dbConnection.query(
+                'SELECT * FROM usuarios WHERE googleId = ?',
+                [profile.id]
+            );
+            if (rows.length > 0) {
+                return rows[0];
+            } else {
+                const [result] = await dbConnection.query(
+                    'INSERT INTO usuarios (nombres, email, googleId) VALUES (?, ?, ?)',
+                    [profile.displayName, profile.emails[0].value, profile.id]
+                );
+                const [newUser] = await dbConnection.query(
+                    'SELECT * FROM usuarios WHERE ID = ?',
+                    [result.insertId]
+                );
+                return newUser[0];
+            }
+        } catch (error) {
+            console.error('Error al encontrar o crear usuario de Google, model:', error);
+            throw error;
+        }
     }
 }
 
-}
-
-module.exports = User
-
-// // Encriptacion de Contrasenas
-// const hashPassword = async (password) => {
-//     try {
-//         const hashedPassword = await bcrypt.hash(password, 10)
-//         return hashedPassword
-//     } catch (error) {
-//         console.error('Error al hashear password, model:', error)
-//         throw error
-//     }
-// }
-
-// // Comparacion de Contrasena Encriptada con la proporcionada
-// const comparePassword = async (password, hashedPassword) => {
-//     try {
-//         const isMatch = await bcrypt.compare(password, hashedPassword)
-//         return isMatch
-//     } catch (error) {
-//         console.error('Error al cmoparar password, model:', error)
-//         throw error
-//     }
-// }
-
-// // Registro de Usuarios
-// const registerUser = async ({ nombres, apellidoPaterno, apellidoMaterno, email, pass, telefono, isTrabajador }) => {
-//     try {
-//         const [result] = await dbConnection.query(
-//             'INSERT INTO usuarios (nombres, apellidoPaterno, apellidoMaterno, email, pass, telefono, isTrabajador) VALUES (?, ?, ?, ?, ?, ?, ?)',
-//             [nombres, apellidoPaterno, apellidoMaterno, email, pass, telefono, isTrabajador]
-//         )
-//         return result
-//     } catch (error) {
-//         console.error('Error al registrar nuevo usuario, model:', error)
-//         throw error
-//     }
-// }
-
-// // Buscar usuario por username v:
-// const findUsername = async (username) => { // TODO: arreglar
-//     try {
-//         const [rows] = await dbConnection.query(
-//             'SELECT * FROM usuarios WHERE username = ?',
-//             [username]
-//         )
-//         return rows[0]
-//     } catch (error) {
-//         console.error('Error al obtener usuario, model:', error)
-//         throw error
-//     }
-// }
-
-// // Buscar usuario por correo
-// const findEmail = async (email) => {
-//     try {
-//         const [rows] = await dbConnection.query(
-//             'SELECT ID, email, pass FROM usuarios WHERE email = ?',
-//             [email]
-//         )
-//         return rows[0]
-//     } catch (error) {
-//         console.error('Error al obtener correo, model:', error)
-//         throw error
-//     }
-// }
-
-// const getAllInfoUser = async (email) => {
-//     try {
-//         const [rows] = await dbConnection.query(
-//             'SELECT * FROM usuarios WHERE email = ?',
-//             [email]
-//         )
-//         return rows[0]
-//     } catch (error) {
-//         console.error('Error al obtener informacion de usuario, model:', error)
-//         throw error
-//     }
-// }
-
-// module.exports = { hashPassword, comparePassword, registerUser, findEmail, findUsername, getAllInfoUser }
+module.exports = User;

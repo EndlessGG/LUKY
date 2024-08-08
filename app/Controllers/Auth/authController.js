@@ -6,30 +6,31 @@ const genToken = require('../../middlewares/tokenMiddleware')
 class UserController {
 
     // Controlador para el Registro de Usuarios
-    static async registro(req, res) {
-        try {
-            const { nombres, apellidoPaterno, apellidoMaterno, email, password } = req.body
+static async registro(req, res) {
+    try {
+        const { nombres, apellidoPaterno, apellidoMaterno, email, password } = req.body;
 
-            // Validacion en caso de que el correo  ya este registrado
-            const existingEmail = await User.findUserByEmail(email)
-            if (existingEmail) {
-                res.status(409).json({ error: 'El Correo ya esta registrado' })
-                res.redirect('/Formulario')
-            }
-
-            // Encriptación de contrasena
-            const hashedPassword = await User.hashPassword(password)
-
-            // Creacion del nuevo usuario
-            const newUser = new User(nombres, apellidoPaterno, apellidoMaterno, email, hashedPassword)
-            const userId = await newUser.registerUser()
-            
-            return res.redirect('/Formulario')
-        } catch (error) {
-            console.error('Error al registrar usuario, controller:', error)
-            res.status(500).json({ error: 'Error interno del servidor' })
+        // Validacion en caso de que el correo ya este registrado
+        const existingEmail = await User.findUserByEmail(email);
+        if (existingEmail) {
+            res.status(409).json({ error: 'El Correo ya esta registrado' });
+            return res.redirect('/Formulario');
         }
+
+        // Encriptación de contrasena
+        const hashedPassword = await User.hashPassword(password);
+
+        // Creacion del nuevo usuario
+        const newUser = new User(nombres, apellidoPaterno, apellidoMaterno, email, hashedPassword, null);
+        await newUser.registerUser();
+
+        return res.redirect('/Formulario');
+    } catch (error) {
+        console.error('Error al registrar usuario, controller:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
     }
+}
+
 
     // Controlador para el inicio de sesión de usuarios
     static async login(req, res) {
@@ -109,29 +110,39 @@ class UserController {
         }
     }
     static googleAuth(req, res, next) {
-        passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] })(req, res, next);
-      }
-    
-      static googleAuthCallback(req, res, next) {
-        passport.authenticate('google', { failureRedirect: '/' })(req, res, next);
-      }
-    
-      static googleAuthCallbackRedirect(req, res) {
+        passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'email'] })(req, res, next);
+    }
+
+// Método de autenticación con Google
+static async googleAuthCallback(req, res, next) {
+    passport.authenticate('google', { failureRedirect: '/' }, async (err, user, info) => {
+        if (err) return next(err);
+        if (!user) return res.redirect('/');
+
+        const token = genToken.generarToken(user);
+
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== 'development',
+            maxAge: 24 * 60 * 60 * 1000,
+        });
+
         res.redirect('/busqueda');
-      }
-    
-      static async profile(req, res) {
-        if (!req.isAuthenticated()) {
-          return res.redirect('/');
-        }
-        res.send(`Hello, ${req.user.displayName}`);
-      }
-      //static async logout(req, res) {
-       // req.logout((err) => {
-         // if (err) { return next(err); }
-          //res.redirect('/');
-        //});
-     // }
+    })(req, res, next);
+}
+
+
+    static googleAuthCallbackRedirect(req, res) {
+        const token = genToken.generarToken(req.user);
+
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== 'development',
+            maxAge: 24 * 60 * 60 * 1000,
+        });
+
+        res.redirect('/busqueda');
+    }
 }
 
 module.exports = UserController
