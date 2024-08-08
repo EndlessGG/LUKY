@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
+
 <body>
     <header>
         <nav>
@@ -28,42 +30,55 @@
                 </div>
                 <div class="datos-perfil">
                     <h4 class="titulo-usuario">
-                        <%= user.nombres %> <%= user.apellidoPaterno %> <%= user.apellidoMaterno %>
+                        <%= user.nombres %>
+                            <%= user.apellidoPaterno %>
+                                <%= user.apellidoMaterno %>
                     </h4>
                     <p class="bio-usuario">
                         <%= user.email %>
                     </p>
-                    <p class="bio-usuario">Fecha de creación: <%= user.fechaCreacion %></p>
+                    <p class="bio-usuario">Fecha de creación: <%= user.fechaCreacion %>
+                    </p>
                 </div>
             </div>
             <div class="menu-perfil">
                 <ul>
-                    <li><a id="agregar-publicacion"> <i class="icono-perfil fas fa-bullhorn"></i> Agregar Publicación</a></li>
+                    <li><a id="agregar-publicacion"> <i class="icono-perfil fas fa-bullhorn"></i> Agregar
+                            Publicación</a></li>
                     <li><a id="editar-perfil"> <i class="icono-perfil fas fa-bullhorn"></i> Editar Perfil</a></li>
-                    <li><a href="#" title="Cerrar Sesión" onclick="document.getElementById('logout-form').submit();"><i class="icono-perfil fas fa-bullhorn"></i> Cerrar Sesión</a></li>
+                    <li><a href="#" title="Cerrar Sesión" onclick="document.getElementById('logout-form').submit();"><i
+                                class="icono-perfil fas fa-bullhorn"></i> Cerrar Sesión</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="posts-container" id="posts-container">
-            <% if (publicaciones.length === 0) { %>
+            <% if (publicaciones.length===0) { %>
                 <p>Aún no has publicado nada.</p>
-            <% } else { %>
-                <% publicaciones.forEach(publicacion => { %>
-                    <div class="post" id="post-<%= publicacion.id %>" data-id="<%= publicacion.id %>">
-                        <h3><%= publicacion.tituloP %></h3>
-                        <p><%= publicacion.descripcion %></p>
-                        <p>Precio Inicial: <%= publicacion.precioI %></p>
-                        <p>Precio Final: <%= publicacion.precioF %></p>
-                        <p>Valoración: <%= publicacion.valoracion %></p>
-                        <div class="post-buttons">
-                            <button class="edit-btn">Editar Publicación</button>
-                            <button class="delete-btn" onclick="openDeleteModal('<%= publicacion.id %>')">Eliminar Publicación</button>
+                <% } else { %>
+                    <% publicaciones.forEach(publicacion=> { %>
+                        <div class="post" id="post-<%= publicacion.ID %>" data-id="<%= publicacion.ID %>">
+                            <h3>
+                                <%= publicacion.tituloP %>
+                            </h3>
+                            <p>
+                                <%= publicacion.descripcion %>
+                            </p>
+                            <p>Precio Inicial: <%= publicacion.precioI %>
+                            </p>
+                            <p>Precio Final: <%= publicacion.precioF %>
+                            </p>
+                            <p>Valoración: <%= publicacion.valoracion %>
+                            </p>
+                            <div class="post-buttons">
+                                <button class="edit-btn">Editar Publicación</button>
+                                <button class="delete-btn" onclick="openDeleteModal('<%= publicacion.ID %>')">Eliminar
+                                    Publicación</button>
 
+                            </div>
                         </div>
-                    </div>
-                <% }) %>
-            <% } %>
+                        <% }) %>
+                            <% } %>
         </div>
 
         <!-- Modal para agregar publicación -->
@@ -78,9 +93,11 @@
                     <input type="text" id="precioF" name="precioF" placeholder="Precio Final"><br>
                     <select id="input5" name="categoriaID">
                         <option value="" disabled selected>Seleccione una opción</option>
-                        <% categorias.forEach(categoria => { %>
-                            <option value="<%= categoria.ID %>"><%= categoria.tipoCategoria %></option>
-                        <% }) %>
+                        <% categorias.forEach(categoria=> { %>
+                            <option value="<%= categoria.ID %>">
+                                <%= categoria.tipoCategoria %>
+                            </option>
+                            <% }) %>
                     </select><br>
                     <button type="submit" id="submit-button">Agregar Publicación</button>
                 </form>
@@ -101,9 +118,11 @@
                     <input type="text" id="edit-precioF" name="precioF" placeholder="Precio Final"><br>
                     <select id="edit-input5" name="categoriaID">
                         <option value="" disabled selected>Seleccione una opción</option>
-                        <% categorias.forEach(categoria => { %>
-                            <option value="<%= categoria.ID %>"><%= categoria.tipoCategoria %></option>
-                        <% }) %>
+                        <% categorias.forEach(categoria=> { %>
+                            <option value="<%= categoria.ID %>">
+                                <%= categoria.tipoCategoria %>
+                            </option>
+                            <% }) %>
                     </select><br>
                     <button type="submit" id="edit-submit-button">Guardar Cambios</button>
                 </form>
@@ -111,7 +130,7 @@
             </div>
         </div>
 
-                <!-- Modal de Eliminación -->
+        <!-- Modal de Eliminación -->
         <div id="deleteModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeDeleteModal()">&times;</span>
@@ -209,24 +228,27 @@
 
         function confirmDelete() {
             if (deletePostId) {
-                fetch(`/api/deletePost/${deletePostId}`, {
-                    method: 'DELETE'
+                fetch(`/post/eliminar/${deletePostId}`, {
+                    method: 'DELETE',
                 })
-                .then(response => {
-                    if (response.ok) {
-                        document.getElementById(`post-${deletePostId}`).remove();
-                        closeDeleteModal();
-                        alert(`Publicación con ID ${deletePostId} eliminada`);
-                    } else {
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            document.getElementById(`post-${deletePostId}`).remove();
+                            closeDeleteModal();
+                            alert(`Publicación eliminada`);
+                        } else {
+                            alert(data.error || 'Error al eliminar la publicación');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
                         alert('Error al eliminar la publicación');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error al eliminar la publicación');
-                });
+                    });
             }
         }
+
     </script>
 </body>
+
 </html>
