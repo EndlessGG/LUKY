@@ -330,15 +330,15 @@ footer {
 }
 
 .edit-btn:hover {
-    background-color: #4CB0C6;
+    background-color: #2a8a8d;
 }
 
 .delete-btn {
-    background-color: #DC3545;
+    background-color: #dc3545;
 }
 
 .delete-btn:hover {
-    background-color: #FF6347;
+    background-color: #c82333;
 }
 
 /* Modal Styles */
@@ -625,8 +625,17 @@ textarea {
     color: white;
     background-color: #3AA8AD; /* Color de botón por defecto */
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #2a8a8d; /* Color al pasar el mouse por encima */
 }
 
 .cancel-btn {
     background-color: #dc3545; /* Color rojo para el botón de cancelar */
+}
+
+.cancel-btn:hover {
+    background-color: #c82333; /* Color al pasar el mouse por encima */
 }
