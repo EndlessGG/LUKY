@@ -58,23 +58,15 @@
                 <% } else { %>
                     <% publicaciones.forEach(publicacion=> { %>
                         <div class="post" id="post-<%= publicacion.ID %>" data-id="<%= publicacion.ID %>">
-                            <h3>
-                                <%= publicacion.tituloP %>
-                            </h3>
-                            <p>
-                                <%= publicacion.descripcion %>
-                            </p>
-                            <p>Precio Inicial: <%= publicacion.precioI %>
-                            </p>
-                            <p>Precio Final: <%= publicacion.precioF %>
-                            </p>
-                            <p>Valoración: <%= publicacion.valoracion %>
-                            </p>
+                            <h3><%=publicacion.tituloP %></h3>
+                            <p><%=publicacion.descripcion %></p>
+                            <p>Precio Inicial: <%= publicacion.precioI %></p>
+                            <p>Precio Final: <%= publicacion.precioF %></p>
+                            <p>Valoración: <%= publicacion.valoracion %></p>
                             <div class="post-buttons">
                                 <button class="edit-btn">Editar Publicación</button>
                                 <button class="delete-btn" onclick="openDeleteModal('<%= publicacion.ID %>')">Eliminar
                                     Publicación</button>
-
                             </div>
                         </div>
                         <% }) %>

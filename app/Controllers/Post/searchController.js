@@ -6,7 +6,7 @@ class UserController {
             const { termino } = req.query
     
             if (!termino) {
-                return res.render('buqueda', { publicaciones: [], mensaje: 'Ingrese un trmino de busqueda' })
+                return res.render('buqueda', { publicaciones: [], mensaje: 'Ingrese un termino de busqueda' })
             }
     
             const publicaciones = await Search.search(termino)

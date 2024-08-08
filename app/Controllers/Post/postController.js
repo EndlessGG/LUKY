@@ -129,7 +129,7 @@ exports.deletePublicacion = async (req, res) => {
         if (result.affectedRows === 0) {
             return res.status(500).json({ error: 'Error al eliminar la publicación' })
         }
-
+        //res.redirect('/perfil')
         res.status(200).json({ message: 'Publicación eliminada exitosamente' })
     } catch (error) {
         res.status(500).json({ error: 'Error al eliminar la publicación', error })
