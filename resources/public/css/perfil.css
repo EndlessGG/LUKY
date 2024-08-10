@@ -16,6 +16,9 @@ html {
 body {
     color: #404040;
     font-family: "Arial", Segoe UI, Tahoma, sans-serif, Helvetica Neue, Helvetica;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 header {
@@ -53,14 +56,13 @@ nav ul li a:hover {
 }
 
 footer {
-    background-color: #3AA8AD;
+    background-color: #3AA8AD; 
     color: white;
     text-align: center;
     padding: 1rem 0;
     position: fixed;
     bottom: 0;
     width: 100%;
-    z-index: 1000;
 }
 
 .perfil-usuario {

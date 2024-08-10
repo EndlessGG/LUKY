@@ -1,11 +1,9 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #d8f5f4; /* Color de fondo */
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    background-color: #d8f5f4;
+    box-sizing: border-box;
 }
 
 header {
@@ -56,7 +54,6 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    z-index: 1000;
 }
 
 .about-container {
